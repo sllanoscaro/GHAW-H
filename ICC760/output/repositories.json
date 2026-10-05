@@ -1,0 +1,1050 @@
+[
+  {
+    "repo_full_name": "apache/cloudstack",
+    "url": "https://github.com/apache/cloudstack"
+  },
+  {
+    "repo_full_name": "brunoborges/fx2048",
+    "url": "https://github.com/brunoborges/fx2048"
+  },
+  {
+    "repo_full_name": "vaadin/flow",
+    "url": "https://github.com/vaadin/flow"
+  },
+  {
+    "repo_full_name": "Activiti/activiti-cloud",
+    "url": "https://github.com/Activiti/activiti-cloud"
+  },
+  {
+    "repo_full_name": "duckduckgo/Android",
+    "url": "https://github.com/duckduckgo/Android"
+  },
+  {
+    "repo_full_name": "executeautomation/ExecuteAutomationWebApp",
+    "url": "https://github.com/executeautomation/ExecuteAutomationWebApp"
+  },
+  {
+    "repo_full_name": "Dedac/Beam",
+    "url": "https://github.com/Dedac/Beam"
+  },
+  {
+    "repo_full_name": "mono/SkiaSharp",
+    "url": "https://github.com/mono/SkiaSharp"
+  },
+  {
+    "repo_full_name": "uxsoft/AppleWirelessKeyboard",
+    "url": "https://github.com/uxsoft/AppleWirelessKeyboard"
+  },
+  {
+    "repo_full_name": "dotnet/maui",
+    "url": "https://github.com/dotnet/maui"
+  },
+  {
+    "repo_full_name": "dotnet/machinelearning",
+    "url": "https://github.com/dotnet/machinelearning"
+  },
+  {
+    "repo_full_name": "npgsql/efcore.pg",
+    "url": "https://github.com/npgsql/efcore.pg"
+  },
+  {
+    "repo_full_name": "microsoft/vstest",
+    "url": "https://github.com/microsoft/vstest"
+  },
+  {
+    "repo_full_name": "dotnet/SqlClient",
+    "url": "https://github.com/dotnet/SqlClient"
+  },
+  {
+    "repo_full_name": "Shazwazza/Articulate",
+    "url": "https://github.com/Shazwazza/Articulate"
+  },
+  {
+    "repo_full_name": "dotnet/msbuild",
+    "url": "https://github.com/dotnet/msbuild"
+  },
+  {
+    "repo_full_name": "Azure/azure-sdk-for-net",
+    "url": "https://github.com/Azure/azure-sdk-for-net"
+  },
+  {
+    "repo_full_name": "OpenMS/OpenMS",
+    "url": "https://github.com/OpenMS/OpenMS"
+  },
+  {
+    "repo_full_name": "ReactiveX/RxPY",
+    "url": "https://github.com/ReactiveX/RxPY"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-vsphere",
+    "url": "https://github.com/pulumi/pulumi-vsphere"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-openstack",
+    "url": "https://github.com/pulumi/pulumi-openstack"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-eks",
+    "url": "https://github.com/pulumi/pulumi-eks"
+  },
+  {
+    "repo_full_name": "Azure/azure-sdk-for-python",
+    "url": "https://github.com/Azure/azure-sdk-for-python"
+  },
+  {
+    "repo_full_name": "taosdata/TDengine",
+    "url": "https://github.com/taosdata/TDengine"
+  },
+  {
+    "repo_full_name": "openvinotoolkit/openvino",
+    "url": "https://github.com/openvinotoolkit/openvino"
+  },
+  {
+    "repo_full_name": "internetarchive/openlibrary",
+    "url": "https://github.com/internetarchive/openlibrary"
+  },
+  {
+    "repo_full_name": "dotnet/runtime",
+    "url": "https://github.com/dotnet/runtime"
+  },
+  {
+    "repo_full_name": "dgreif/ring",
+    "url": "https://github.com/dgreif/ring"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-random",
+    "url": "https://github.com/pulumi/pulumi-random"
+  },
+  {
+    "repo_full_name": "microsoft/pxt-arcade",
+    "url": "https://github.com/microsoft/pxt-arcade"
+  },
+  {
+    "repo_full_name": "Alfresco/alfresco-ng2-components",
+    "url": "https://github.com/Alfresco/alfresco-ng2-components"
+  },
+  {
+    "repo_full_name": "storybookjs/storybook",
+    "url": "https://github.com/storybookjs/storybook"
+  },
+  {
+    "repo_full_name": "microsoft/pxt",
+    "url": "https://github.com/microsoft/pxt"
+  },
+  {
+    "repo_full_name": "PowerShell/vscode-powershell",
+    "url": "https://github.com/PowerShell/vscode-powershell"
+  },
+  {
+    "repo_full_name": "Azure/azure-sdk-for-js",
+    "url": "https://github.com/Azure/azure-sdk-for-js"
+  },
+  {
+    "repo_full_name": "WordPress/grunt-patch-wordpress",
+    "url": "https://github.com/WordPress/grunt-patch-wordpress"
+  },
+  {
+    "repo_full_name": "ptarmiganlabs/butler-sos",
+    "url": "https://github.com/ptarmiganlabs/butler-sos"
+  },
+  {
+    "repo_full_name": "IgniteUI/igniteui-docfx",
+    "url": "https://github.com/IgniteUI/igniteui-docfx"
+  },
+  {
+    "repo_full_name": "appwrite/appwrite",
+    "url": "https://github.com/appwrite/appwrite"
+  },
+  {
+    "repo_full_name": "microsoft/Web-Dev-For-Beginners",
+    "url": "https://github.com/microsoft/Web-Dev-For-Beginners"
+  },
+  {
+    "repo_full_name": "elastic/kibana",
+    "url": "https://github.com/elastic/kibana"
+  },
+  {
+    "repo_full_name": "lablup/backend.ai-webui",
+    "url": "https://github.com/lablup/backend.ai-webui"
+  },
+  {
+    "repo_full_name": "Josverl/micropython-stubs",
+    "url": "https://github.com/Josverl/micropython-stubs"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-postgresql",
+    "url": "https://github.com/pulumi/pulumi-postgresql"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-linode",
+    "url": "https://github.com/pulumi/pulumi-linode"
+  },
+  {
+    "repo_full_name": "licensee/licensee",
+    "url": "https://github.com/licensee/licensee"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-kubernetes-operator",
+    "url": "https://github.com/pulumi/pulumi-kubernetes-operator"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-terraform",
+    "url": "https://github.com/pulumi/pulumi-terraform"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-digitalocean",
+    "url": "https://github.com/pulumi/pulumi-digitalocean"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-docker",
+    "url": "https://github.com/pulumi/pulumi-docker"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-alicloud",
+    "url": "https://github.com/pulumi/pulumi-alicloud"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-cloudflare",
+    "url": "https://github.com/pulumi/pulumi-cloudflare"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-gcp",
+    "url": "https://github.com/pulumi/pulumi-gcp"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-azure",
+    "url": "https://github.com/pulumi/pulumi-azure"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-terraform-bridge",
+    "url": "https://github.com/pulumi/pulumi-terraform-bridge"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-provider-boilerplate",
+    "url": "https://github.com/pulumi/pulumi-provider-boilerplate"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-kubernetes",
+    "url": "https://github.com/pulumi/pulumi-kubernetes"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-aws",
+    "url": "https://github.com/pulumi/pulumi-aws"
+  },
+  {
+    "repo_full_name": "royshil/obs-backgroundremoval",
+    "url": "https://github.com/royshil/obs-backgroundremoval"
+  },
+  {
+    "repo_full_name": "RustPython/RustPython",
+    "url": "https://github.com/RustPython/RustPython"
+  },
+  {
+    "repo_full_name": "wp-media/wp-rocket",
+    "url": "https://github.com/wp-media/wp-rocket"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-github",
+    "url": "https://github.com/pulumi/pulumi-github"
+  },
+  {
+    "repo_full_name": "elastic/elasticsearch-specification",
+    "url": "https://github.com/elastic/elasticsearch-specification"
+  },
+  {
+    "repo_full_name": "Azure/azure-sdk-for-go",
+    "url": "https://github.com/Azure/azure-sdk-for-go"
+  },
+  {
+    "repo_full_name": "SatelliteQE/broker",
+    "url": "https://github.com/SatelliteQE/broker"
+  },
+  {
+    "repo_full_name": "sergey-tihon/Clippit",
+    "url": "https://github.com/sergey-tihon/Clippit"
+  },
+  {
+    "repo_full_name": "microsoft/gctoolkit",
+    "url": "https://github.com/microsoft/gctoolkit"
+  },
+  {
+    "repo_full_name": "apolloconfig/apollo",
+    "url": "https://github.com/apolloconfig/apollo"
+  },
+  {
+    "repo_full_name": "evcc-io/evcc",
+    "url": "https://github.com/evcc-io/evcc"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-keycloak",
+    "url": "https://github.com/pulumi/pulumi-keycloak"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-aws-native",
+    "url": "https://github.com/pulumi/pulumi-aws-native"
+  },
+  {
+    "repo_full_name": "adoptium/containers",
+    "url": "https://github.com/adoptium/containers"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-hcloud",
+    "url": "https://github.com/pulumi/pulumi-hcloud"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-azuredevops",
+    "url": "https://github.com/pulumi/pulumi-azuredevops"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-auth0",
+    "url": "https://github.com/pulumi/pulumi-auth0"
+  },
+  {
+    "repo_full_name": "elastic/terraform-provider-elasticstack",
+    "url": "https://github.com/elastic/terraform-provider-elasticstack"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-azuread",
+    "url": "https://github.com/pulumi/pulumi-azuread"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-gitlab",
+    "url": "https://github.com/pulumi/pulumi-gitlab"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-datadog",
+    "url": "https://github.com/pulumi/pulumi-datadog"
+  },
+  {
+    "repo_full_name": "advanced-security/advanced-security-material",
+    "url": "https://github.com/advanced-security/advanced-security-material"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-command",
+    "url": "https://github.com/pulumi/pulumi-command"
+  },
+  {
+    "repo_full_name": "anweiss/cddl",
+    "url": "https://github.com/anweiss/cddl"
+  },
+  {
+    "repo_full_name": "r12f/rnp",
+    "url": "https://github.com/r12f/rnp"
+  },
+  {
+    "repo_full_name": "guitarrapc/githubactions-lab",
+    "url": "https://github.com/guitarrapc/githubactions-lab"
+  },
+  {
+    "repo_full_name": "Azure/azure-sdk-for-rust",
+    "url": "https://github.com/Azure/azure-sdk-for-rust"
+  },
+  {
+    "repo_full_name": "prowler-cloud/prowler",
+    "url": "https://github.com/prowler-cloud/prowler"
+  },
+  {
+    "repo_full_name": "microsoft/vscode-pylint",
+    "url": "https://github.com/microsoft/vscode-pylint"
+  },
+  {
+    "repo_full_name": "adoptium/api.adoptium.net",
+    "url": "https://github.com/adoptium/api.adoptium.net"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-vault",
+    "url": "https://github.com/pulumi/pulumi-vault"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-cdk",
+    "url": "https://github.com/pulumi/pulumi-cdk"
+  },
+  {
+    "repo_full_name": "microsoft/vscode-black-formatter",
+    "url": "https://github.com/microsoft/vscode-black-formatter"
+  },
+  {
+    "repo_full_name": "py-why/dowhy",
+    "url": "https://github.com/py-why/dowhy"
+  },
+  {
+    "repo_full_name": "microsoft/vscode-isort",
+    "url": "https://github.com/microsoft/vscode-isort"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-oci",
+    "url": "https://github.com/pulumi/pulumi-oci"
+  },
+  {
+    "repo_full_name": "NikiforovAll/keycloak-authorization-services-dotnet",
+    "url": "https://github.com/NikiforovAll/keycloak-authorization-services-dotnet"
+  },
+  {
+    "repo_full_name": "getindata/kedro-vertexai",
+    "url": "https://github.com/getindata/kedro-vertexai"
+  },
+  {
+    "repo_full_name": "baizhiheizi/quill",
+    "url": "https://github.com/baizhiheizi/quill"
+  },
+  {
+    "repo_full_name": "microsoft/security-devops-action",
+    "url": "https://github.com/microsoft/security-devops-action"
+  },
+  {
+    "repo_full_name": "Azure/azure-dev",
+    "url": "https://github.com/Azure/azure-dev"
+  },
+  {
+    "repo_full_name": "libxengine/XEngine_Authorize",
+    "url": "https://github.com/libxengine/XEngine_Authorize"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-aiven",
+    "url": "https://github.com/pulumi/pulumi-aiven"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-tailscale",
+    "url": "https://github.com/pulumi/pulumi-tailscale"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-kubernetes-cert-manager",
+    "url": "https://github.com/pulumi/pulumi-kubernetes-cert-manager"
+  },
+  {
+    "repo_full_name": "talk2MeGooseman/stream_closed_captioner_phoenix",
+    "url": "https://github.com/talk2MeGooseman/stream_closed_captioner_phoenix"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-mongodbatlas",
+    "url": "https://github.com/pulumi/pulumi-mongodbatlas"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-kafka",
+    "url": "https://github.com/pulumi/pulumi-kafka"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-newrelic",
+    "url": "https://github.com/pulumi/pulumi-newrelic"
+  },
+  {
+    "repo_full_name": "microsoft/pylance-release",
+    "url": "https://github.com/microsoft/pylance-release"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-pulumiservice",
+    "url": "https://github.com/pulumi/pulumi-pulumiservice"
+  },
+  {
+    "repo_full_name": "microsoft/vscode-mypy",
+    "url": "https://github.com/microsoft/vscode-mypy"
+  },
+  {
+    "repo_full_name": "Alfresco/alfresco-build-tools",
+    "url": "https://github.com/Alfresco/alfresco-build-tools"
+  },
+  {
+    "repo_full_name": "runhey/OnmyojiAutoScript",
+    "url": "https://github.com/runhey/OnmyojiAutoScript"
+  },
+  {
+    "repo_full_name": "sytone/obsidian-queryallthethings",
+    "url": "https://github.com/sytone/obsidian-queryallthethings"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-snowflake",
+    "url": "https://github.com/pulumi/pulumi-snowflake"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-azure-native",
+    "url": "https://github.com/pulumi/pulumi-azure-native"
+  },
+  {
+    "repo_full_name": "Azure/LogicAppsUX",
+    "url": "https://github.com/Azure/LogicAppsUX"
+  },
+  {
+    "repo_full_name": "microsoft/typespec",
+    "url": "https://github.com/microsoft/typespec"
+  },
+  {
+    "repo_full_name": "Keboo/DotnetTemplates",
+    "url": "https://github.com/Keboo/DotnetTemplates"
+  },
+  {
+    "repo_full_name": "home-assistant/core",
+    "url": "https://github.com/home-assistant/core"
+  },
+  {
+    "repo_full_name": "unipept/unipept",
+    "url": "https://github.com/unipept/unipept"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-tls",
+    "url": "https://github.com/pulumi/pulumi-tls"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-kubernetes-ingress-nginx",
+    "url": "https://github.com/pulumi/pulumi-kubernetes-ingress-nginx"
+  },
+  {
+    "repo_full_name": "jonathanpeppers/dotnes",
+    "url": "https://github.com/jonathanpeppers/dotnes"
+  },
+  {
+    "repo_full_name": "dotnet/maintenance-packages",
+    "url": "https://github.com/dotnet/maintenance-packages"
+  },
+  {
+    "repo_full_name": "microsoft/aspire",
+    "url": "https://github.com/microsoft/aspire"
+  },
+  {
+    "repo_full_name": "stride3d/stride-community-toolkit",
+    "url": "https://github.com/stride3d/stride-community-toolkit"
+  },
+  {
+    "repo_full_name": "clash-verge-rev/clash-verge-rev",
+    "url": "https://github.com/clash-verge-rev/clash-verge-rev"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-databricks",
+    "url": "https://github.com/pulumi/pulumi-databricks"
+  },
+  {
+    "repo_full_name": "openvinotoolkit/openvino.genai",
+    "url": "https://github.com/openvinotoolkit/openvino.genai"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-nomad",
+    "url": "https://github.com/pulumi/pulumi-nomad"
+  },
+  {
+    "repo_full_name": "GuyKh/iec-custom-component",
+    "url": "https://github.com/GuyKh/iec-custom-component"
+  },
+  {
+    "repo_full_name": "CliMA/ClimaAtmos.jl",
+    "url": "https://github.com/CliMA/ClimaAtmos.jl"
+  },
+  {
+    "repo_full_name": "KunalSin9h/meltcd",
+    "url": "https://github.com/KunalSin9h/meltcd"
+  },
+  {
+    "repo_full_name": "rancher/dashboard",
+    "url": "https://github.com/rancher/dashboard"
+  },
+  {
+    "repo_full_name": "microsoft/finnts",
+    "url": "https://github.com/microsoft/finnts"
+  },
+  {
+    "repo_full_name": "lrascao/rebar3_gpb_plugin",
+    "url": "https://github.com/lrascao/rebar3_gpb_plugin"
+  },
+  {
+    "repo_full_name": "dotnet/fsharp",
+    "url": "https://github.com/dotnet/fsharp"
+  },
+  {
+    "repo_full_name": "fable-compiler/Fable",
+    "url": "https://github.com/fable-compiler/Fable"
+  },
+  {
+    "repo_full_name": "fslaborg/Deedle",
+    "url": "https://github.com/fslaborg/Deedle"
+  },
+  {
+    "repo_full_name": "ionide/ionide-vscode-fsharp",
+    "url": "https://github.com/ionide/ionide-vscode-fsharp"
+  },
+  {
+    "repo_full_name": "fsprojects/fantomas",
+    "url": "https://github.com/fsprojects/fantomas"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharp.Formatting",
+    "url": "https://github.com/fsprojects/FSharp.Formatting"
+  },
+  {
+    "repo_full_name": "fsprojects/FsHttp",
+    "url": "https://github.com/fsprojects/FsHttp"
+  },
+  {
+    "repo_full_name": "ionide/FsAutoComplete",
+    "url": "https://github.com/ionide/FsAutoComplete"
+  },
+  {
+    "repo_full_name": "MoiraeSoftware/Myriad",
+    "url": "https://github.com/MoiraeSoftware/Myriad"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharp.TypeProviders.SDK",
+    "url": "https://github.com/fsprojects/FSharp.TypeProviders.SDK"
+  },
+  {
+    "repo_full_name": "fsprojects/SwaggerProvider",
+    "url": "https://github.com/fsprojects/SwaggerProvider"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharpx.Collections",
+    "url": "https://github.com/fsprojects/FSharpx.Collections"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharp.Data.SqlClient",
+    "url": "https://github.com/fsprojects/FSharp.Data.SqlClient"
+  },
+  {
+    "repo_full_name": "fslaborg/FSharp.Stats",
+    "url": "https://github.com/fslaborg/FSharp.Stats"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharp.Control.AsyncSeq",
+    "url": "https://github.com/fsprojects/FSharp.Control.AsyncSeq"
+  },
+  {
+    "repo_full_name": "fable-compiler/Fable.Python",
+    "url": "https://github.com/fable-compiler/Fable.Python"
+  },
+  {
+    "repo_full_name": "fsprojects/FSharp.Control.TaskSeq",
+    "url": "https://github.com/fsprojects/FSharp.Control.TaskSeq"
+  },
+  {
+    "repo_full_name": "opsmill/infrahub",
+    "url": "https://github.com/opsmill/infrahub"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-aws-apigateway",
+    "url": "https://github.com/pulumi/pulumi-aws-apigateway"
+  },
+  {
+    "repo_full_name": "mongodb-js/devtools-shared",
+    "url": "https://github.com/mongodb-js/devtools-shared"
+  },
+  {
+    "repo_full_name": "dotnet/java-interop",
+    "url": "https://github.com/dotnet/java-interop"
+  },
+  {
+    "repo_full_name": "dotnet/android",
+    "url": "https://github.com/dotnet/android"
+  },
+  {
+    "repo_full_name": "dotnet/android-tools",
+    "url": "https://github.com/dotnet/android-tools"
+  },
+  {
+    "repo_full_name": "erigontech/erigon",
+    "url": "https://github.com/erigontech/erigon"
+  },
+  {
+    "repo_full_name": "timrogers/iata-code-decoder-api",
+    "url": "https://github.com/timrogers/iata-code-decoder-api"
+  },
+  {
+    "repo_full_name": "carlkidcrypto/ezsnmp",
+    "url": "https://github.com/carlkidcrypto/ezsnmp"
+  },
+  {
+    "repo_full_name": "Azure/typespec-azure",
+    "url": "https://github.com/Azure/typespec-azure"
+  },
+  {
+    "repo_full_name": "fedixyz/fedi",
+    "url": "https://github.com/fedixyz/fedi"
+  },
+  {
+    "repo_full_name": "meshery/schemas",
+    "url": "https://github.com/meshery/schemas"
+  },
+  {
+    "repo_full_name": "foxminchan/BookWorm",
+    "url": "https://github.com/foxminchan/BookWorm"
+  },
+  {
+    "repo_full_name": "ohcnetwork/care_fe",
+    "url": "https://github.com/ohcnetwork/care_fe"
+  },
+  {
+    "repo_full_name": "IgniteUI/igniteui-xplat-docs",
+    "url": "https://github.com/IgniteUI/igniteui-xplat-docs"
+  },
+  {
+    "repo_full_name": "alexandru/social-publish",
+    "url": "https://github.com/alexandru/social-publish"
+  },
+  {
+    "repo_full_name": "pulumi/ci-mgmt",
+    "url": "https://github.com/pulumi/ci-mgmt"
+  },
+  {
+    "repo_full_name": "CommunityToolkit/Aspire",
+    "url": "https://github.com/CommunityToolkit/Aspire"
+  },
+  {
+    "repo_full_name": "popey/slomore",
+    "url": "https://github.com/popey/slomore"
+  },
+  {
+    "repo_full_name": "pydantic/pydantic-ai",
+    "url": "https://github.com/pydantic/pydantic-ai"
+  },
+  {
+    "repo_full_name": "moeru-ai/airi",
+    "url": "https://github.com/moeru-ai/airi"
+  },
+  {
+    "repo_full_name": "popey/grummage",
+    "url": "https://github.com/popey/grummage"
+  },
+  {
+    "repo_full_name": "bob-collective/bob",
+    "url": "https://github.com/bob-collective/bob"
+  },
+  {
+    "repo_full_name": "dotnet/macios",
+    "url": "https://github.com/dotnet/macios"
+  },
+  {
+    "repo_full_name": "ZSWatch/ZSWatch",
+    "url": "https://github.com/ZSWatch/ZSWatch"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-okta",
+    "url": "https://github.com/pulumi/pulumi-okta"
+  },
+  {
+    "repo_full_name": "elastic/opentelemetry-collector-components",
+    "url": "https://github.com/elastic/opentelemetry-collector-components"
+  },
+  {
+    "repo_full_name": "svenjacobs/lokksmith",
+    "url": "https://github.com/svenjacobs/lokksmith"
+  },
+  {
+    "repo_full_name": "czlonkowski/n8n-mcp",
+    "url": "https://github.com/czlonkowski/n8n-mcp"
+  },
+  {
+    "repo_full_name": "github/awesome-copilot",
+    "url": "https://github.com/github/awesome-copilot"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-cloudinit",
+    "url": "https://github.com/pulumi/pulumi-cloudinit"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-fastly",
+    "url": "https://github.com/pulumi/pulumi-fastly"
+  },
+  {
+    "repo_full_name": "microsoft/wassette",
+    "url": "https://github.com/microsoft/wassette"
+  },
+  {
+    "repo_full_name": "kaito-project/aikit",
+    "url": "https://github.com/kaito-project/aikit"
+  },
+  {
+    "repo_full_name": "Azure/AppConfiguration-KubernetesProvider",
+    "url": "https://github.com/Azure/AppConfiguration-KubernetesProvider"
+  },
+  {
+    "repo_full_name": "githubnext/agentics",
+    "url": "https://github.com/githubnext/agentics"
+  },
+  {
+    "repo_full_name": "microsoft/mcp",
+    "url": "https://github.com/microsoft/mcp"
+  },
+  {
+    "repo_full_name": "MiguelElGallo/mpzsql",
+    "url": "https://github.com/MiguelElGallo/mpzsql"
+  },
+  {
+    "repo_full_name": "fideus-labs/ngff-zarr",
+    "url": "https://github.com/fideus-labs/ngff-zarr"
+  },
+  {
+    "repo_full_name": "tosin2013/mcp-adr-analysis-server",
+    "url": "https://github.com/tosin2013/mcp-adr-analysis-server"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-rabbitmq",
+    "url": "https://github.com/pulumi/pulumi-rabbitmq"
+  },
+  {
+    "repo_full_name": "kubestellar/docs",
+    "url": "https://github.com/kubestellar/docs"
+  },
+  {
+    "repo_full_name": "drehelis/gcp-emulator-ui",
+    "url": "https://github.com/drehelis/gcp-emulator-ui"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-rancher2",
+    "url": "https://github.com/pulumi/pulumi-rancher2"
+  },
+  {
+    "repo_full_name": "YousefHadder/markdown-plus.nvim",
+    "url": "https://github.com/YousefHadder/markdown-plus.nvim"
+  },
+  {
+    "repo_full_name": "cncf/contribute-site",
+    "url": "https://github.com/cncf/contribute-site"
+  },
+  {
+    "repo_full_name": "kaito-tokyo/live-backgroundremoval-lite",
+    "url": "https://github.com/kaito-tokyo/live-backgroundremoval-lite"
+  },
+  {
+    "repo_full_name": "microsoft/apm",
+    "url": "https://github.com/microsoft/apm"
+  },
+  {
+    "repo_full_name": "informedica/GenPRES",
+    "url": "https://github.com/informedica/GenPRES"
+  },
+  {
+    "repo_full_name": "pikax/verter",
+    "url": "https://github.com/pikax/verter"
+  },
+  {
+    "repo_full_name": "Kong/kongctl",
+    "url": "https://github.com/Kong/kongctl"
+  },
+  {
+    "repo_full_name": "shanselman/WindowsEdgeLight",
+    "url": "https://github.com/shanselman/WindowsEdgeLight"
+  },
+  {
+    "repo_full_name": "chrisreddington/trend-radar",
+    "url": "https://github.com/chrisreddington/trend-radar"
+  },
+  {
+    "repo_full_name": "mcpc-tech/dev-inspector-mcp",
+    "url": "https://github.com/mcpc-tech/dev-inspector-mcp"
+  },
+  {
+    "repo_full_name": "hemanth/mcp-web-client",
+    "url": "https://github.com/hemanth/mcp-web-client"
+  },
+  {
+    "repo_full_name": "meteostat/meteostat",
+    "url": "https://github.com/meteostat/meteostat"
+  },
+  {
+    "repo_full_name": "navikt/copilot",
+    "url": "https://github.com/navikt/copilot"
+  },
+  {
+    "repo_full_name": "BMayhew/awesome-sites-to-test-on",
+    "url": "https://github.com/BMayhew/awesome-sites-to-test-on"
+  },
+  {
+    "repo_full_name": "github/copilot-sdk",
+    "url": "https://github.com/github/copilot-sdk"
+  },
+  {
+    "repo_full_name": "natnew/Awesome-Data-Science",
+    "url": "https://github.com/natnew/Awesome-Data-Science"
+  },
+  {
+    "repo_full_name": "neverinfamous/memory-journal-mcp",
+    "url": "https://github.com/neverinfamous/memory-journal-mcp"
+  },
+  {
+    "repo_full_name": "microsoft/skills",
+    "url": "https://github.com/microsoft/skills"
+  },
+  {
+    "repo_full_name": "copilot-community-sdk/copilot-sdk-java",
+    "url": "https://github.com/copilot-community-sdk/copilot-sdk-java"
+  },
+  {
+    "repo_full_name": "chrisreddington/flight-school",
+    "url": "https://github.com/chrisreddington/flight-school"
+  },
+  {
+    "repo_full_name": "f/prompts.chat",
+    "url": "https://github.com/f/prompts.chat"
+  },
+  {
+    "repo_full_name": "microsoft/GitHub-Copilot-for-Azure",
+    "url": "https://github.com/microsoft/GitHub-Copilot-for-Azure"
+  },
+  {
+    "repo_full_name": "pulumi/pulumi-docker-build",
+    "url": "https://github.com/pulumi/pulumi-docker-build"
+  },
+  {
+    "repo_full_name": "influxdata/docs-v2",
+    "url": "https://github.com/influxdata/docs-v2"
+  },
+  {
+    "repo_full_name": "Flare-Animate/Flare",
+    "url": "https://github.com/Flare-Animate/Flare"
+  },
+  {
+    "repo_full_name": "vbuch/oboapp",
+    "url": "https://github.com/vbuch/oboapp"
+  },
+  {
+    "repo_full_name": "shanselman/winget-tui",
+    "url": "https://github.com/shanselman/winget-tui"
+  },
+  {
+    "repo_full_name": "chimon2000/good_first_issue",
+    "url": "https://github.com/chimon2000/good_first_issue"
+  },
+  {
+    "repo_full_name": "intent-integrity-chain/kit",
+    "url": "https://github.com/intent-integrity-chain/kit"
+  },
+  {
+    "repo_full_name": "doggy8088/Apptopia",
+    "url": "https://github.com/doggy8088/Apptopia"
+  },
+  {
+    "repo_full_name": "PureWeen/PolyPilot",
+    "url": "https://github.com/PureWeen/PolyPilot"
+  },
+  {
+    "repo_full_name": "jurre/huebar",
+    "url": "https://github.com/jurre/huebar"
+  },
+  {
+    "repo_full_name": "popey/sbom-vm",
+    "url": "https://github.com/popey/sbom-vm"
+  },
+  {
+    "repo_full_name": "zircote/rlm-rs",
+    "url": "https://github.com/zircote/rlm-rs"
+  },
+  {
+    "repo_full_name": "brunoborges/jairosvg",
+    "url": "https://github.com/brunoborges/jairosvg"
+  },
+  {
+    "repo_full_name": "microsoft/agentrc",
+    "url": "https://github.com/microsoft/agentrc"
+  },
+  {
+    "repo_full_name": "asizikov-demos/copilot-user-level-statistics-viewer",
+    "url": "https://github.com/asizikov-demos/copilot-user-level-statistics-viewer"
+  },
+  {
+    "repo_full_name": "SonarSource/sonarqube-cli",
+    "url": "https://github.com/SonarSource/sonarqube-cli"
+  },
+  {
+    "repo_full_name": "henrybravo/docker-sandbox-run-copilot",
+    "url": "https://github.com/henrybravo/docker-sandbox-run-copilot"
+  },
+  {
+    "repo_full_name": "elastic/elastic-docs-skills",
+    "url": "https://github.com/elastic/elastic-docs-skills"
+  },
+  {
+    "repo_full_name": "AndreaGriffiths11/IssueCrush",
+    "url": "https://github.com/AndreaGriffiths11/IssueCrush"
+  },
+  {
+    "repo_full_name": "hatch3r/hatch3r",
+    "url": "https://github.com/hatch3r/hatch3r"
+  },
+  {
+    "repo_full_name": "pockebot/openpocket",
+    "url": "https://github.com/pockebot/openpocket"
+  },
+  {
+    "repo_full_name": "FalkorDB/falkordb-rs-next-gen",
+    "url": "https://github.com/FalkorDB/falkordb-rs-next-gen"
+  },
+  {
+    "repo_full_name": "DevExpGbb/gh-devlake",
+    "url": "https://github.com/DevExpGbb/gh-devlake"
+  },
+  {
+    "repo_full_name": "dorlugasigal/TermBeam",
+    "url": "https://github.com/dorlugasigal/TermBeam"
+  },
+  {
+    "repo_full_name": "inference-sh/shadcn-registry",
+    "url": "https://github.com/inference-sh/shadcn-registry"
+  },
+  {
+    "repo_full_name": "microsoft/Microsoft-AI-Decision-Framework",
+    "url": "https://github.com/microsoft/Microsoft-AI-Decision-Framework"
+  },
+  {
+    "repo_full_name": "github/gh-aw-actions",
+    "url": "https://github.com/github/gh-aw-actions"
+  },
+  {
+    "repo_full_name": "microsoft/physical-ai-toolchain",
+    "url": "https://github.com/microsoft/physical-ai-toolchain"
+  },
+  {
+    "repo_full_name": "webmaxru/web-ai-agent-skills",
+    "url": "https://github.com/webmaxru/web-ai-agent-skills"
+  },
+  {
+    "repo_full_name": "dotnet/maui-labs",
+    "url": "https://github.com/dotnet/maui-labs"
+  },
+  {
+    "repo_full_name": "dotnet/skills",
+    "url": "https://github.com/dotnet/skills"
+  },
+  {
+    "repo_full_name": "iamnbutler/gpui-unofficial",
+    "url": "https://github.com/iamnbutler/gpui-unofficial"
+  },
+  {
+    "repo_full_name": "githubnext/autoloop",
+    "url": "https://github.com/githubnext/autoloop"
+  },
+  {
+    "repo_full_name": "UbiHome/UbiHome",
+    "url": "https://github.com/UbiHome/UbiHome"
+  },
+  {
+    "repo_full_name": "Azure/git-ape",
+    "url": "https://github.com/Azure/git-ape"
+  },
+  {
+    "repo_full_name": "Azure-Samples/octocat-supply",
+    "url": "https://github.com/Azure-Samples/octocat-supply"
+  },
+  {
+    "repo_full_name": "microsoft/apm-action",
+    "url": "https://github.com/microsoft/apm-action"
+  },
+  {
+    "repo_full_name": "DanWahlin/github-azure-agentic-journeys",
+    "url": "https://github.com/DanWahlin/github-azure-agentic-journeys"
+  },
+  {
+    "repo_full_name": "oboapp/oboapp",
+    "url": "https://github.com/oboapp/oboapp"
+  },
+  {
+    "repo_full_name": "felipementel/GitHubCopilotDevDays-Curitiba-2026",
+    "url": "https://github.com/felipementel/GitHubCopilotDevDays-Curitiba-2026"
+  },
+  {
+    "repo_full_name": "fqfqgo/clash-verge-rev",
+    "url": "https://github.com/fqfqgo/clash-verge-rev"
+  },
+  {
+    "repo_full_name": "microsoft/AI-Engineering-Coach",
+    "url": "https://github.com/microsoft/AI-Engineering-Coach"
+  },
+  {
+    "repo_full_name": "drasi-project/drasi-server",
+    "url": "https://github.com/drasi-project/drasi-server"
+  }
+]

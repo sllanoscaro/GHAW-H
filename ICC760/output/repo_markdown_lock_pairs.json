@@ -1,0 +1,710 @@
+{
+  "vaadin/flow": [
+    {
+      "markdown_file": ".github/workflows/doc-bot.md",
+      "lock_file": ".github/workflows/doc-bot.lock.yml"
+    }
+  ],
+  "duckduckgo/Android": [
+    {
+      "markdown_file": ".github/workflows/drift-audit.md",
+      "lock_file": ".github/workflows/drift-audit.lock.yml"
+    }
+  ],
+  "Dedac/Beam": [
+    {
+      "markdown_file": ".github/workflows/fix-top-improvement.md",
+      "lock_file": ".github/workflows/fix-top-improvement.lock.yml"
+    }
+  ],
+  "mono/SkiaSharp": [
+    {
+      "markdown_file": ".github/workflows/update-release-notes.md",
+      "lock_file": ".github/workflows/update-release-notes.lock.yml"
+    }
+  ],
+  "uxsoft/AppleWirelessKeyboard": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "dotnet/maui": [
+    {
+      "markdown_file": ".github/workflows/ci-status-fix-net11.md",
+      "lock_file": ".github/workflows/ci-status-fix-net11.lock.yml"
+    }
+  ],
+  "dotnet/machinelearning": [
+    {
+      "markdown_file": ".github/workflows/ci-scan-feedback.agent.md",
+      "lock_file": ".github/workflows/ci-scan-feedback.agent.lock.yml"
+    }
+  ],
+  "npgsql/efcore.pg": [
+    {
+      "markdown_file": ".github/workflows/sync-to-latest-ef.md",
+      "lock_file": ".github/workflows/sync-to-latest-ef.lock.yml"
+    }
+  ],
+  "microsoft/vstest": [
+    {
+      "markdown_file": ".github/workflows/md-link-checker.md",
+      "lock_file": ".github/workflows/md-link-checker.lock.yml"
+    }
+  ],
+  "Shazwazza/Articulate": [
+    {
+      "markdown_file": ".github/workflows/efficiency-improver.md",
+      "lock_file": ".github/workflows/efficiency-improver.lock.yml"
+    }
+  ],
+  "dotnet/msbuild": [
+    {
+      "markdown_file": ".github/workflows/flaky-test-detector.agent.md",
+      "lock_file": ".github/workflows/flaky-test-detector.agent.lock.yml"
+    }
+  ],
+  "OpenMS/OpenMS": [
+    {
+      "markdown_file": ".github/workflows/changelog-sync.md",
+      "lock_file": ".github/workflows/changelog-sync.lock.yml"
+    }
+  ],
+  "ReactiveX/RxPY": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "Azure/azure-sdk-for-python": [
+    {
+      "markdown_file": ".github/workflows/doc-consistency-check.md",
+      "lock_file": ".github/workflows/doc-consistency-check.lock.yml"
+    }
+  ],
+  "dotnet/runtime": [
+    {
+      "markdown_file": ".github/workflows/ci-failure-fix.md",
+      "lock_file": ".github/workflows/ci-failure-fix.lock.yml"
+    }
+  ],
+  "storybookjs/storybook": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "Azure/azure-sdk-for-js": [
+    {
+      "markdown_file": ".github/workflows/docs-consistency-check.md",
+      "lock_file": ".github/workflows/docs-consistency-check.lock.yml"
+    }
+  ],
+  "IgniteUI/igniteui-docfx": [
+    {
+      "markdown_file": ".github/workflows/sync-jp-docs.md",
+      "lock_file": ".github/workflows/sync-jp-docs.lock.yml"
+    }
+  ],
+  "elastic/kibana": [
+    {
+      "markdown_file": ".github/workflows/failed-backport-resolver.md",
+      "lock_file": ".github/workflows/failed-backport-resolver.lock.yml"
+    }
+  ],
+  "lablup/backend.ai-webui": [
+    {
+      "markdown_file": ".github/workflows/e2e-healer.md",
+      "lock_file": ".github/workflows/e2e-healer.lock.yml"
+    }
+  ],
+  "licensee/licensee": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "RustPython/RustPython": [
+    {
+      "markdown_file": ".github/workflows/upgrade-pylib.md",
+      "lock_file": ".github/workflows/upgrade-pylib.lock.yml"
+    }
+  ],
+  "elastic/elasticsearch-specification": [
+    {
+      "markdown_file": ".github/workflows/spec-drift.md",
+      "lock_file": ".github/workflows/spec-drift.lock.yml"
+    }
+  ],
+  "sergey-tihon/Clippit": [
+    {
+      "markdown_file": ".github/workflows/clippy.md",
+      "lock_file": ".github/workflows/clippy.lock.yml"
+    }
+  ],
+  "elastic/terraform-provider-elasticstack": [
+    {
+      "markdown_file": ".github/workflows/ci-deadcode-removal-rotation.md",
+      "lock_file": ".github/workflows/ci-deadcode-removal-rotation.lock.yml"
+    }
+  ],
+  "advanced-security/advanced-security-material": [
+    {
+      "markdown_file": ".github/workflows/codeql-version-tracker.md",
+      "lock_file": ".github/workflows/codeql-version-tracker.lock.yml"
+    }
+  ],
+  "microsoft/vscode-pylint": [
+    {
+      "markdown_file": ".github/workflows/check-python-versions.md",
+      "lock_file": ".github/workflows/check-python-versions.lock.yml"
+    }
+  ],
+  "microsoft/vscode-black-formatter": [
+    {
+      "markdown_file": ".github/workflows/check-python-versions.md",
+      "lock_file": ".github/workflows/check-python-versions.lock.yml"
+    }
+  ],
+  "py-why/dowhy": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "microsoft/vscode-isort": [
+    {
+      "markdown_file": ".github/workflows/check-python-versions.md",
+      "lock_file": ".github/workflows/check-python-versions.lock.yml"
+    }
+  ],
+  "NikiforovAll/keycloak-authorization-services-dotnet": [
+    {
+      "markdown_file": ".github/workflows/keybot.md",
+      "lock_file": ".github/workflows/keybot.lock.yml"
+    }
+  ],
+  "baizhiheizi/quill": [
+    {
+      "markdown_file": ".github/workflows/agentic-wiki-writer.md",
+      "lock_file": ".github/workflows/agentic-wiki-writer.lock.yml"
+    }
+  ],
+  "microsoft/security-devops-action": [
+    {
+      "markdown_file": ".github/workflows/ci-doctor.md",
+      "lock_file": ".github/workflows/ci-doctor.lock.yml"
+    }
+  ],
+  "Azure/azure-dev": [
+    {
+      "markdown_file": ".github/workflows/update-instructions-from-pr-reviews.md",
+      "lock_file": ".github/workflows/update-instructions-from-pr-reviews.lock.yml"
+    }
+  ],
+  "libxengine/XEngine_Authorize": [
+    {
+      "markdown_file": ".github/workflows/auto-code.md",
+      "lock_file": ".github/workflows/auto-code.lock.yml"
+    }
+  ],
+  "talk2MeGooseman/stream_closed_captioner_phoenix": [
+    {
+      "markdown_file": ".github/workflows/daily-test-improver.md",
+      "lock_file": ".github/workflows/daily-test-improver.lock.yml"
+    }
+  ],
+  "microsoft/vscode-mypy": [
+    {
+      "markdown_file": ".github/workflows/check-python-versions.md",
+      "lock_file": ".github/workflows/check-python-versions.lock.yml"
+    }
+  ],
+  "sytone/obsidian-queryallthethings": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "Keboo/DotnetTemplates": [
+    {
+      "markdown_file": ".github/workflows/update-dependencies.md",
+      "lock_file": ".github/workflows/update-dependencies.lock.yml"
+    }
+  ],
+  "unipept/unipept": [
+    {
+      "markdown_file": ".github/workflows/dependency-update.md",
+      "lock_file": ".github/workflows/dependency-update.lock.yml"
+    }
+  ],
+  "dotnet/maintenance-packages": [
+    {
+      "markdown_file": ".github/workflows/version-maintenance.md",
+      "lock_file": ".github/workflows/version-maintenance.lock.yml"
+    }
+  ],
+  "microsoft/aspire": [
+    {
+      "markdown_file": ".github/workflows/pr-docs-check.md",
+      "lock_file": ".github/workflows/pr-docs-check.lock.yml"
+    }
+  ],
+  "microsoft/finnts": [
+    {
+      "markdown_file": ".github/workflows/repo-improver.md",
+      "lock_file": ".github/workflows/repo-improver.lock.yml"
+    }
+  ],
+  "dotnet/fsharp": [
+    {
+      "markdown_file": ".github/workflows/msbuild-quality-review.md",
+      "lock_file": ".github/workflows/msbuild-quality-review.lock.yml"
+    }
+  ],
+  "fable-compiler/Fable": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fslaborg/Deedle": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "ionide/ionide-vscode-fsharp": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/fantomas": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FSharp.Formatting": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FsHttp": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "ionide/FsAutoComplete": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "MoiraeSoftware/Myriad": [
+    {
+      "markdown_file": ".github/workflows/q.md",
+      "lock_file": ".github/workflows/q.lock.yml"
+    }
+  ],
+  "fsprojects/FSharp.TypeProviders.SDK": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/SwaggerProvider": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FSharpx.Collections": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FSharp.Data.SqlClient": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fslaborg/FSharp.Stats": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FSharp.Control.AsyncSeq": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fable-compiler/Fable.Python": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "fsprojects/FSharp.Control.TaskSeq": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "opsmill/infrahub": [
+    {
+      "markdown_file": ".github/workflows/bug-agent-test.md",
+      "lock_file": ".github/workflows/bug-agent-test.lock.yml"
+    }
+  ],
+  "mongodb-js/devtools-shared": [
+    {
+      "markdown_file": ".github/workflows/security-quality-agent.md",
+      "lock_file": ".github/workflows/security-quality-agent.lock.yml"
+    }
+  ],
+  "carlkidcrypto/ezsnmp": [
+    {
+      "markdown_file": ".github/workflows/coverage_autofix_every_3_days.md",
+      "lock_file": ".github/workflows/coverage_autofix_every_3_days.lock.yml"
+    }
+  ],
+  "Azure/typespec-azure": [
+    {
+      "markdown_file": ".github/workflows/doc-update.md",
+      "lock_file": ".github/workflows/doc-update.lock.yml"
+    }
+  ],
+  "fedixyz/fedi": [
+    {
+      "markdown_file": ".github/workflows/weekly-doc-updater.md",
+      "lock_file": ".github/workflows/weekly-doc-updater.lock.yml"
+    }
+  ],
+  "ohcnetwork/care_fe": [
+    {
+      "markdown_file": ".github/workflows/daily-playwright-improver.md",
+      "lock_file": ".github/workflows/daily-playwright-improver.lock.yml"
+    }
+  ],
+  "IgniteUI/igniteui-xplat-docs": [
+    {
+      "markdown_file": ".github/workflows/sync-jp-docs.md",
+      "lock_file": ".github/workflows/sync-jp-docs.lock.yml"
+    }
+  ],
+  "alexandru/social-publish": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "CommunityToolkit/Aspire": [
+    {
+      "markdown_file": ".github/workflows/aspire-upgrade.md",
+      "lock_file": ".github/workflows/aspire-upgrade.lock.yml"
+    }
+  ],
+  "popey/slomore": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "popey/grummage": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "bob-collective/bob": [
+    {
+      "markdown_file": ".github/workflows/openapi-docs-sync.md",
+      "lock_file": ".github/workflows/openapi-docs-sync.lock.yml"
+    }
+  ],
+  "dotnet/macios": [
+    {
+      "markdown_file": ".github/workflows/code-radiator.md",
+      "lock_file": ".github/workflows/code-radiator.lock.yml"
+    }
+  ],
+  "ZSWatch/ZSWatch": [
+    {
+      "markdown_file": ".github/workflows/docs-pr-analyze.md",
+      "lock_file": ".github/workflows/docs-pr-analyze.lock.yml"
+    }
+  ],
+  "svenjacobs/lokksmith": [
+    {
+      "markdown_file": ".github/workflows/update-dependency-matrix.md",
+      "lock_file": ".github/workflows/update-dependency-matrix.lock.yml"
+    }
+  ],
+  "github/awesome-copilot": [
+    {
+      "markdown_file": ".github/workflows/cli-for-beginners-sync.md",
+      "lock_file": ".github/workflows/cli-for-beginners-sync.lock.yml"
+    }
+  ],
+  "microsoft/wassette": [
+    {
+      "markdown_file": ".github/workflows/changelog-pr-link.md",
+      "lock_file": ".github/workflows/changelog-pr-link.lock.yml"
+    }
+  ],
+  "kaito-project/aikit": [
+    {
+      "markdown_file": ".github/workflows/daily-test-improver.md",
+      "lock_file": ".github/workflows/daily-test-improver.lock.yml"
+    }
+  ],
+  "githubnext/agentics": [
+    {
+      "markdown_file": ".github/workflows/daily-repo-goals.md",
+      "lock_file": ".github/workflows/daily-repo-goals.lock.yml"
+    }
+  ],
+  "MiguelElGallo/mpzsql": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "fideus-labs/ngff-zarr": [
+    {
+      "markdown_file": ".github/workflows/daily-doc-updater.md",
+      "lock_file": ".github/workflows/daily-doc-updater.lock.yml"
+    }
+  ],
+  "kubestellar/docs": [
+    {
+      "markdown_file": ".github/workflows/technical-doc-writer.md",
+      "lock_file": ".github/workflows/technical-doc-writer.lock.yml"
+    }
+  ],
+  "YousefHadder/markdown-plus.nvim": [
+    {
+      "markdown_file": ".github/workflows/contributor-recognition.md",
+      "lock_file": ".github/workflows/contributor-recognition.lock.yml"
+    }
+  ],
+  "cncf/contribute-site": [
+    {
+      "markdown_file": ".github/workflows/link-fixer.md",
+      "lock_file": ".github/workflows/link-fixer.lock.yml"
+    }
+  ],
+  "microsoft/apm": [
+    {
+      "markdown_file": ".github/workflows/daily-doc-updater.md",
+      "lock_file": ".github/workflows/daily-doc-updater.lock.yml"
+    }
+  ],
+  "informedica/GenPRES": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "pikax/verter": [
+    {
+      "markdown_file": ".github/workflows/update-docs.md",
+      "lock_file": ".github/workflows/update-docs.lock.yml"
+    }
+  ],
+  "Kong/kongctl": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "shanselman/WindowsEdgeLight": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "chrisreddington/trend-radar": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "navikt/copilot": [
+    {
+      "markdown_file": ".github/workflows/news-excerpts.md",
+      "lock_file": ".github/workflows/news-excerpts.lock.yml"
+    }
+  ],
+  "BMayhew/awesome-sites-to-test-on": [
+    {
+      "markdown_file": ".github/workflows/issue-site-submission.md",
+      "lock_file": ".github/workflows/issue-site-submission.lock.yml"
+    }
+  ],
+  "github/copilot-sdk": [
+    {
+      "markdown_file": ".github/workflows/release-changelog.md",
+      "lock_file": ".github/workflows/release-changelog.lock.yml"
+    }
+  ],
+  "microsoft/skills": [
+    {
+      "markdown_file": ".github/workflows/update-llms-txt.md",
+      "lock_file": ".github/workflows/update-llms-txt.lock.yml"
+    }
+  ],
+  "chrisreddington/flight-school": [
+    {
+      "markdown_file": ".github/workflows/daily-accessibility-review.md",
+      "lock_file": ".github/workflows/daily-accessibility-review.lock.yml"
+    }
+  ],
+  "shanselman/winget-tui": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "chimon2000/good_first_issue": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "PureWeen/PolyPilot": [
+    {
+      "markdown_file": ".github/workflows/agent-fix.md",
+      "lock_file": ".github/workflows/agent-fix.lock.yml"
+    }
+  ],
+  "popey/sbom-vm": [
+    {
+      "markdown_file": ".github/workflows/repo-assist.md",
+      "lock_file": ".github/workflows/repo-assist.lock.yml"
+    }
+  ],
+  "zircote/rlm-rs": [
+    {
+      "markdown_file": ".github/workflows/daily-qa.md",
+      "lock_file": ".github/workflows/daily-qa.lock.yml"
+    }
+  ],
+  "microsoft/agentrc": [
+    {
+      "markdown_file": ".github/workflows/code-simplifier.md",
+      "lock_file": ".github/workflows/code-simplifier.lock.yml"
+    }
+  ],
+  "asizikov-demos/copilot-user-level-statistics-viewer": [
+    {
+      "markdown_file": ".github/workflows/dependency-audit.md",
+      "lock_file": ".github/workflows/dependency-audit.lock.yml"
+    }
+  ],
+  "SonarSource/sonarqube-cli": [
+    {
+      "markdown_file": ".github/workflows/ci-failure-triage-agent.md",
+      "lock_file": ".github/workflows/ci-failure-triage-agent.lock.yml"
+    }
+  ],
+  "henrybravo/docker-sandbox-run-copilot": [
+    {
+      "markdown_file": ".github/workflows/check-copilot-version.md",
+      "lock_file": ".github/workflows/check-copilot-version.lock.yml"
+    }
+  ],
+  "elastic/elastic-docs-skills": [
+    {
+      "markdown_file": ".github/workflows/skill-freshness.md",
+      "lock_file": ".github/workflows/skill-freshness.lock.yml"
+    }
+  ],
+  "AndreaGriffiths11/IssueCrush": [
+    {
+      "markdown_file": ".github/workflows/update-docs.md",
+      "lock_file": ".github/workflows/update-docs.lock.yml"
+    }
+  ],
+  "hatch3r/hatch3r": [
+    {
+      "markdown_file": ".github/workflows/generate-docusaurus-docs.md",
+      "lock_file": ".github/workflows/generate-docusaurus-docs.lock.yml"
+    }
+  ],
+  "pockebot/openpocket": [
+    {
+      "markdown_file": ".github/workflows/issue-fix.md",
+      "lock_file": ".github/workflows/issue-fix.lock.yml"
+    }
+  ],
+  "FalkorDB/falkordb-rs-next-gen": [
+    {
+      "markdown_file": ".github/workflows/flow-tests-migration.md",
+      "lock_file": ".github/workflows/flow-tests-migration.lock.yml"
+    }
+  ],
+  "DevExpGbb/gh-devlake": [
+    {
+      "markdown_file": ".github/workflows/docs-sync.md",
+      "lock_file": ".github/workflows/docs-sync.lock.yml"
+    }
+  ],
+  "inference-sh/shadcn-registry": [
+    {
+      "markdown_file": ".github/workflows/code-review.md",
+      "lock_file": ".github/workflows/code-review.lock.yml"
+    }
+  ],
+  "microsoft/Microsoft-AI-Decision-Framework": [
+    {
+      "markdown_file": ".github/workflows/link-checker.md",
+      "lock_file": ".github/workflows/link-checker.lock.yml"
+    }
+  ],
+  "webmaxru/web-ai-agent-skills": [
+    {
+      "markdown_file": ".github/workflows/skill-update-worker.md",
+      "lock_file": ".github/workflows/skill-update-worker.lock.yml"
+    }
+  ],
+  "dotnet/maui-labs": [
+    {
+      "markdown_file": ".github/workflows/ai-docs-audit.md",
+      "lock_file": ".github/workflows/ai-docs-audit.lock.yml"
+    }
+  ],
+  "dotnet/skills": [
+    {
+      "markdown_file": ".github/workflows/issue-investigate.md",
+      "lock_file": ".github/workflows/issue-investigate.lock.yml"
+    }
+  ],
+  "iamnbutler/gpui-unofficial": [
+    {
+      "markdown_file": ".github/workflows/ci-fix.md",
+      "lock_file": ".github/workflows/ci-fix.lock.yml"
+    }
+  ],
+  "githubnext/autoloop": [
+    {
+      "markdown_file": ".github/workflows/autoloop.md",
+      "lock_file": ".github/workflows/autoloop.lock.yml"
+    }
+  ],
+  "Azure/git-ape": [
+    {
+      "markdown_file": ".github/workflows/git-ape-workshop-content-updater.md",
+      "lock_file": ".github/workflows/git-ape-workshop-content-updater.lock.yml"
+    }
+  ]
+}
