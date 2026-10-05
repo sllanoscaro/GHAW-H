@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="GHAW-H: A Dataset of GitHub Agentic Workflow Histories">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pavt.github.io/GHAW-H/">
+    <title>GHAW-H: A Dataset of GitHub Agentic Workflow Histories</title>
+    <link rel="stylesheet" href="styles.css?v=9">
+  </head>
+  <body>
+    <main>
+      <section class="paper-header">
+        <h1>GHAW-H: A Dataset of<br>GitHub Agentic Workflow Histories</h1>
+        <p class="authors">
+          <a href="https://pavt.github.io/" target="_blank" rel="noopener noreferrer">Pablo Valenzuela-Toledo</a>,
+          <a href="https://seg.inf.unibe.ch/team/timo-kehrer/" target="_blank" rel="noopener noreferrer">Timo Kehrer</a>,
+          <a href="https://spanichella.github.io/" target="_blank" rel="noopener noreferrer">Sebastiano Panichella</a>
+        </p>
+        <nav class="project-links" aria-label="Project resources">
+          <a href="assets/GHAW-H.pdf?v=420906b">
+            <svg class="resource-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.75h7l4 4v14.5H7zM14 2.75v4h4M9.5 12h6M9.5 15h6M9.5 18h4"/></svg>
+            Paper
+          </a>
+          <a href="https://huggingface.co/datasets/pavtch/GHAW-H"><span class="brand-icon brand-huggingface" aria-hidden="true"></span> Dataset</a>
+          <a href="https://github.com/pavt/GHAW-H"><span class="brand-icon brand-github" aria-hidden="true"></span> GitHub</a>
+          <a href="https://github.com/pavt/GHAW-H/tree/main/notebooks"><span class="brand-icon brand-jupyter" aria-hidden="true"></span> Notebooks</a>
+          <a href="calls/">
+            <svg class="resource-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v14H4zM8 3v5M16 3v5M4 9.5h16M8 13h3M8 16h6"/></svg>
+            Calls
+          </a>
+          <a href="#citation">
+            <svg class="resource-icon resource-icon-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h6v6H7.5c0 2 1 3.5 3 4.5L9 19c-3-1.5-4-4-4-7zm10 0h6v6h-3.5c0 2 1 3.5 3 4.5L19 19c-3-1.5-4-4-4-7z"/></svg>
+            Citation
+          </a>
+        </nav>
+      </section>
+
+      <section class="call-feature" aria-labelledby="featured-call-title">
+        <div class="call-feature-card">
+          <div class="call-feature-copy">
+            <div class="call-kicker"><span class="call-status call-status-upcoming"><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg> Upcoming</span> NLBSE 2027 · Co-located with ICSE 2027</div>
+            <h2 id="featured-call-title" class="heading-with-icon"><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13.5v-3l11-4v11l-11-4zM15 9.5h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3M6 14l1.5 5h3L9 15"/></svg> GitHub Agentic Workflows Challenge</h2>
+            <p>Use GHAW-H to investigate natural-language agentic workflow specifications, their compiled workflows, and their evolution.</p>
+          </div>
+          <div class="call-feature-action">
+            <span>Paper submission: November 13, 2026 (AoE)</span>
+            <a class="button-primary" href="calls/nlbse-2027-ghaw-challenge/"><svg class="semantic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 11h6M9 15h6"/></svg> Read the call <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-tint">
+        <h2>Dataset Overview</h2>
+        <p><strong>GHAW-H</strong> connects repository metadata with the observable history of natural-language workflow specifications and their aligned lock files. It contains 262 repositories, 604 source histories, 2,820 Markdown versions, and 2,820 lock snapshots.</p>
+        <figure>
+          <img src="assets/gawd_cumulative_all_repositories.png" alt="Cumulative observed adoption of GitHub Agentic Workflows by repository">
+          <figcaption>Cumulative observed adoption, based on the earliest confirmed committed workflow source in each repository.</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>What is included?</h2>
+        <div class="stats" aria-label="Dataset statistics">
+          <div><strong>262</strong><span>repositories</span></div>
+          <div><strong>604</strong><span>source histories</span></div>
+          <div><strong>2,820</strong><span>Markdown versions</span></div>
+          <div><strong>2,820</strong><span>lock snapshots</span></div>
+        </div>
+        <figure class="featured-figure">
+          <img src="assets/gawd_cumulative_language_usage.png" alt="Cumulative observed GitHub Agentic Workflow adoption by main language">
+          <figcaption>Cumulative observed GH-AW adoption by main language.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-tint">
+        <h2>Relational schema</h2>
+        <figure class="schema">
+          <img src="assets/gh-aw-er-v0.1.svg" alt="Entity-relationship diagram for the five GHAW-H tables">
+          <figcaption>GHAW-H v0.1 relational schema. Field definitions are available in the <a href="https://github.com/pavt/GHAW-H/blob/main/schema/table_dictionary.md">table dictionary</a>.</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Explore the dataset</h2>
+        <div class="notebooks">
+          <article>
+            <h3>Load GHAW-H</h3>
+            <p>Read all five tables and construct the core analytical joins.</p>
+            <a class="colab-link" href="https://colab.research.google.com/github/pavt/GHAW-H/blob/main/notebooks/load_GAWD.ipynb"><span class="brand-icon brand-googlecolab" aria-hidden="true"></span> Open in Colab <span aria-hidden="true">→</span></a>
+          </article>
+          <article>
+            <h3>Dataset Overview</h3>
+            <p>Inspect coverage and reproduce the cumulative adoption figure.</p>
+            <a class="colab-link" href="https://colab.research.google.com/github/pavt/GHAW-H/blob/main/notebooks/dataset_overview.ipynb"><span class="brand-icon brand-googlecolab" aria-hidden="true"></span> Open in Colab <span aria-hidden="true">→</span></a>
+          </article>
+          <article>
+            <h3>Language usage</h3>
+            <p>Compare adoption across repository language ecosystems.</p>
+            <a class="colab-link" href="https://colab.research.google.com/github/pavt/GHAW-H/blob/main/notebooks/language_usage.ipynb"><span class="brand-icon brand-googlecolab" aria-hidden="true"></span> Open in Colab <span aria-hidden="true">→</span></a>
+          </article>
+          <article>
+            <h3>History analysis</h3>
+            <p>Explore version depth, history span, and temporal change.</p>
+            <a class="colab-link" href="https://colab.research.google.com/github/pavt/GHAW-H/blob/main/notebooks/history_data.ipynb"><span class="brand-icon brand-googlecolab" aria-hidden="true"></span> Open in Colab <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="citation" class="section-neutral">
+        <h2>Citation</h2>
+        <p>If you use GHAW-H, please cite the archived v0.1.2 dataset release and identify the version used.</p>
+        <p>Valenzuela-Toledo, P., Kehrer, T., &amp; Panichella, S. (2026). <em>GHAW-H: A Dataset of GitHub Agentic Workflow Histories</em> (Version v0.1.2) [Dataset]. Zenodo. <a href="https://doi.org/10.5281/zenodo.22084012">https://doi.org/10.5281/zenodo.22084012</a></p>
+        <pre><code>@dataset{valenzuela_toledo_ghaw_h_2026,
+  author    = {Valenzuela-Toledo, Pablo and Kehrer, Timo and Panichella, Sebastiano},
+  title     = {{GHAW-H}: A Dataset of GitHub Agentic Workflow Histories},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v0.1.2},
+  doi       = {10.5281/zenodo.22084012},
+  url       = {https://doi.org/10.5281/zenodo.22084012}
+}</code></pre>
+      </section>
+
+      <section class="affiliations" aria-label="Affiliated institutions">
+        <p>Affiliated institutions</p>
+        <div class="affiliation-logos">
+          <a href="https://www.unibe.ch/" target="_blank" rel="noopener noreferrer" aria-label="University of Bern">
+            <img class="logo-bern" src="https://www.unibe.ch/assets/media/image/logo_unibern@2x.png" alt="University of Bern">
+          </a>
+          <a href="https://www.ufro.cl/" target="_blank" rel="noopener noreferrer" aria-label="Universidad de La Frontera">
+            <img class="logo-ufro" src="https://www.ufro.cl/wp-content/uploads/2025/03/01-logo-UFRO-azul-horizontal.png" alt="Universidad de La Frontera">
+          </a>
+          <a href="https://ai4i.it/" target="_blank" rel="noopener noreferrer" aria-label="AI4I">
+            <img class="logo-ai4i" src="https://ai4i.it/wp-content/uploads/2024/12/logoai4i_nero.png" alt="AI4I">
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>GHAW-H · GitHub Agentic Workflow Histories</p>
+    </footer>
+  </body>
+</html>

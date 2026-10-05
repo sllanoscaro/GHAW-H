@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use GHAW-H, please cite this dataset release."
+title: "GHAW-H: A Dataset of GitHub Agentic Workflow Histories"
+type: dataset
+authors:
+  - family-names: "Valenzuela-Toledo"
+    given-names: "Pablo"
+  - family-names: "Kehrer"
+    given-names: "Timo"
+  - family-names: "Panichella"
+    given-names: "Sebastiano"
+version: "0.1.2"
+date-released: 2026-08-24
+doi: "10.5281/zenodo.22084012"
+license: CC-BY-4.0
+repository-code: "https://github.com/pavt/GHAW-H"
+url: "https://doi.org/10.5281/zenodo.22084012"
