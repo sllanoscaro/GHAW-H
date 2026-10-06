@@ -1,0 +1,17 @@
+{
+  "title": "Replication Package: Del Markdown al Rechazo: Un Estudio Empírico sobre Pull Requests No Integrados en GitHub Agentic Workflows",
+  "description": "Partial replication package for ICC760 Stage 2. It contains the data, scripts, qualitative codebook and preliminary coding used to reproduce the results reported in the paper.",
+  "creators": [
+    {
+      "name": "Llanos, Sebastián"
+    }
+  ],
+  "version": "stage-2",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "GitHub Agentic Workflows",
+    "Pull Requests",
+    "Mining Software Repositories",
+    "Replication Package"
+  ]
+}

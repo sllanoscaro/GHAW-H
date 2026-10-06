@@ -28,6 +28,22 @@ Este proyecto extrae, desde el dataset `pavtch/GHAW-H` (Hugging Face), los pares
    python main.py
    ```
 
+## Reproducción de los resultados preliminares
+
+Para reproducir los resultados preliminares de esta Etapa 2 no hace falta volver a ejecutar toda la minería de datos ni consultar nuevamente GitHub. El punto de partida son los datos de extracción conservados en `ICC760/output/` —incluidos `unmerged_prs.json`, `pr_evidence.json` y los archivos intermedios asociados— y la codificación manual registrada en `ICC760/analisis_cualitativo.csv`. El resumen de categorías se calcula a partir del CSV; los archivos de `output/` conservan los resultados previos de minería y la evidencia recopilada.
+
+Desde la raíz del repositorio, ejecutar:
+
+```bash
+python ICC760/scripts/summarize_coding.py \
+    --input ICC760/analisis_cualitativo.csv \
+    --output ICC760/output/preliminary_summary.md
+```
+
+El comando imprime el resumen y guarda una copia en `ICC760/output/preliminary_summary.md`. El archivo contiene tanto la distribución de razones como la tabla completa de los 10 PRs, con evidencia, estado y razones principal/secundaria. **La tabla generada es la salida reproducible que sustenta la Tabla `qualitative` del paper**, actualmente presentada manualmente en LaTeX; cualquier edición de formato en el paper debe conservar los mismos valores y filas que esta salida.
+
+Con los datos actuales, el resultado esperado es: 10 PRs en el CSV, 7 revisados/codificados, 3 con evidencia explícita (`yes`) y 4 sin evidencia suficiente (`no` o `ambiguous`). La distribución de razones incluye sólo esos 3 casos con evidencia `yes` (las categorías son no excluyentes): `abandono_revisor`, `amenaza_agente`, `datos_obsoletos`, `error_parseo`, `fallo_orquestacion` y `pr_huerfano`, cada una con 1 PR (33,3 %). La tabla enumera los diez identificadores desde `advanced-security #108` hasta `runtime #134186`, con etiquetas de evidencia y categorías traducidas para coincidir con la tabla del paper. Esta reproducción resume los datos preliminares conservados; no vuelve a generar los datos de minería.
+
 ## Secuencia de procesamiento
 
 `main.py` ejecuta tres pasos secuenciales: `extract_repo_info.py` obtiene de GHAW-H los repositorios y escribe `output/repositories.json`; `pair_markdown_locks.py` filtra los workflows cuya configuración declara `safe-outputs.create-pull-request`, y conserva el par Markdown/lock más reciente por repositorio en `output/repo_markdown_lock_pairs.json`; `fetch_prs_from_artifacts.py` consulta ejecuciones y artefactos de GitHub, y escribe `output/selected_runs.json` y `output/unmerged_prs.json` con las ejecuciones y PRs cerrados sin merge. Las tablas Parquet se descargan desde Hugging Face y se almacenan en `ICC760/.cache/`; los resultados de la API y el progreso de extracción se almacenan en `output/`. Cada paso usa los resultados del paso anterior y puede reanudarse mediante las cachés descritas más abajo.
