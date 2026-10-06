@@ -2,9 +2,10 @@
 
 By default, a PR is considered reviewed when ``coding status`` is ``codificado``.
 Explicit evidence means ``evidencia_disponible == yes``; insufficient evidence
-means ``no`` or ``ambiguous``. Category percentages use reviewed PRs as the
-denominator. Categories are multi-label: a PR is counted once per category if
-it appears as either its primary or secondary reason.
+means ``no`` or ``ambiguous``. Category counts and percentages include only
+reviewed PRs with explicit evidence, using those PRs as the denominator.
+Categories are multi-label: a PR is counted once per category if it appears as
+either its primary or secondary reason.
 """
 
 from __future__ import annotations
@@ -63,9 +64,10 @@ def summarize(rows: list[dict[str, str]]) -> dict:
         if (row.get("evidencia_disponible") or "").strip().casefold() in INSUFFICIENT_EVIDENCE
     ]
 
+    # Category distribution is restricted to reviewed PRs with explicit evidence.
     # Sets ensure a repeated code on the same PR cannot inflate its count.
     category_prs: dict[str, set[tuple[str, str]]] = {}
-    for row in reviewed:
+    for row in explicit:
         pr_key = ((row.get("repo") or "").strip(), (row.get("pr_id") or "").strip())
         codes = {
             (row.get(field) or "").strip()
@@ -74,7 +76,7 @@ def summarize(rows: list[dict[str, str]]) -> dict:
         for code in codes - {""}:
             category_prs.setdefault(code, set()).add(pr_key)
 
-    denominator = len(reviewed)
+    denominator = len(explicit)
     categories = [
         {
             "category": category,
@@ -102,7 +104,7 @@ def format_report(summary: dict, input_path: Path) -> str:
         f"Filas totales en el CSV: {summary['total_rows']}",
         "",
         "PRs per category / Percentage per category",
-        "(porcentaje calculado sobre PRs revisados; categorías no excluyentes)",
+        "(sólo PRs codificados con evidencia explícita yes; categorías no excluyentes)",
         "",
         "| Categoría | PRs | Porcentaje |",
         "| --- | ---: | ---: |",
