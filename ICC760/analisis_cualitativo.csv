@@ -1,0 +1,36 @@
+repo,pr_id,pr_url,workflow_id,evidencia_disponible,razon_principal,razon_secundaria,evidence_source,evidence_excertp,coding_notes,coding status
+advanced-security/advanced-security-material,108,https://github.com/advanced-security/advanced-security-material/pull/108,codeql-version-tracker,no,,,,,"No hay justificación explícita del cierre en el JSON
+proporcionado.",pendiente
+advanced-security/advanced-security-material,111,https://github.com/advanced-security/advanced-security-material/pull/111,codeql-version-tracker,ambiguous,cierre_silencioso,,Comentario de PR (felickz),"""Why was this closed??""","Cierre sin justificación previa. CI exitoso. Un humano
+evidencia la falta de contexto preguntando el motivo.",codificado
+elastic/elastic-docs-skills,129,https://github.com/elastic/elastic-docs-skills/pull/129,skill-freshness,ambiguous,cierre_silencioso,error_red_agente,Cuerpo del PR,"""The following domains were blocked by the
+firewall... To allow these domains, add them to the 
+network.allowed list""","Cierre sin comentarios humanos. CI exitoso. 
+El agente reporta un fallo de firewall en 
+el cuerpo del PR al intentar acceder a las fuentes.",codificado
+elastic/terraform-provider-elasticstack,4603,https://github.com/elastic/terraform-provider-elasticstack/pull/4603,ci-deadcode-removal-rotation,ambiguous,cierre_silencioso,error_red_agente,Cuerpo del PR,"""The following domain was blocked by the firewall
+during workflow execution:""","Cierre sin comentarios. CI exitoso. El agente reporta
+un fallo de firewall en el cuerpo del PR.",codificado
+fsprojects/FSharp.Formatting,1332,https://github.com/fsprojects/FSharp.Formatting/pull/1332,repo-assist,no,,,,,"Ausencia de interacción humana. El cuerpo menciona
+un 'workaround' para un issue abierto, pero no hay 
+justificación explícita del rechazo.",pendiente
+github/copilot-sdk,2001,https://github.com/github/copilot-sdk/pull/2001,release-changelog,ambiguous,modificacion_archivo_protegido,abandono_revisor,Cuerpo del PR,"""Protected files were modified in this pull request
+and require manual scrutiny before merge...""","El agente modificó un archivo protegido, lo que
+disparó una política de seguridad que exige 
+revisión humana explícita. El PR fue 
+cerrado sin comentarios humanos.",codificado
+iamnbutler/gpui-unofficial,306,https://github.com/iamnbutler/gpui-unofficial/pull/306,ci-fix,no,,,,,"Ausencia de interacción humana. Estado de CI
+'pending'.",pendiente
+dotnet/msbuild,14646,https://github.com/dotnet/msbuild/pull/14646,flaky-test-detector.agent,yes,abandono_revisor,datos_obsoletos,Comentario de PR (AR-May),"""Stale data and some of the tests are
+already covered by different PR. Closing.""","El PR superó todas las pruebas de CI. Un mantenedor
+lo cerró indicando que los datos estaban obsoletos
+ y que parte de los tests ya habían sido cubiertos 
+por otro PR.",codificado
+elastic/terraform-provider-elasticstack,4386,https://github.com/elastic/terraform-provider-elasticstack/pull/4386,ci-deadcode-removal-rotation,yes,amenaza_agente,error_parseo,Comentario de PR,"""Threat detection produced a warning for this pull
+request output. These changes need to be 
+scrutinized before merge...""","El PR superó las pruebas de CI, pero recibió
+una alerta de amenaza agéntica por un 
+error de parseo.",codificado
+dotnet/runtime,134186,https://github.com/dotnet/runtime/pull/134186,ci-failure-fix,yes,fallo_orquestacion,pr_huerfano,Issue vinculado #134305,"""The fixer's Step 3 branch-prefix dedup key never
+matched... orphaned twice on failed PR pushes""","Categoría inicial para fallo de validación del agente
+por falta de coincidencia en llave de deduplicación.",codificado

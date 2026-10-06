@@ -28,57 +28,9 @@ Este proyecto extrae, desde el dataset `pavtch/GHAW-H` (Hugging Face), los pares
    python main.py
    ```
 
-## Flujo de datos
+## Secuencia de procesamiento
 
-```
- Fuente: Hugging Face  pavtch/GHAW-H  (data/*.parquet)
-            │  descarga y caché local en ICC760/.cache/  (utils.read_parquet_table)
-            ▼
- ┌───────────────────────────────────────────────────────────────────────┐
- │ [1] extract_repo_info.py                                                │
- │   tabla repository  ─────────────►  output/repositories.json            │
- │                                     262 × {repo_full_name, url}         │
- └───────────────────────────────────────────────────────────────────────┘
-            │
-            ▼
- ┌───────────────────────────────────────────────────────────────────────┐
- │ [2] pair_markdown_locks.py                                              │
- │   repository ⋈ source_markdown_file_version                             │
- │                 ⋈ source_markdown_file_snapshot ⋈ lock_file_snapshot    │
- │                                                                         │
- │   filtros en orden:                                                     │
- │     1) frontmatter declara safe-outputs.create-pull-request             │
- │     2) por par (repo, md, lock) se conserva la última versión (commit)  │
- │     3) por repo se conserva el par de commit más reciente               │
- │                              │                                          │
- │                              ▼                                          │
- │   output/repo_markdown_lock_pairs.json  (118 repos, 1 par c/u)          │
- │     { "<owner/repo>": [ { markdown_file, lock_file } ] }                │
- └───────────────────────────────────────────────────────────────────────┘
-            │
-            ▼
- ┌───────────────────────────────────────────────────────────────────────┐
- │ [3] fetch_prs_from_artifacts.py      (GitHub API vía `gh` autenticado)  │
- │   a) runs por workflow:  gh run list --workflow <lock> --limit 100      │
- │   b) índice de artefactos safe-outputs-items por repositorio            │
- │        GET /repos/{o}/{r}/actions/artifacts?name=safe-outputs-items     │
- │   c) por run (nuevo → viejo): descarga el .zip del artefacto y parsea   │
- │        safe-output-items.jsonl → entradas create_pull_request (/pull/N) │
- │   d) estado del PR:  GET /repos/{target}/pulls/{N}                       │
- │        ¿state == closed  y  merged_at == null?  → califica              │
- │   e) sin tope: todas las runs que califiquen por workflow               │
- │                              │                                          │
- │              ┌───────────────┴───────────────┐                          │
- │              ▼                               ▼                          │
- │   output/selected_runs.json          output/unmerged_prs.json           │
- │   (runs elegidos + sus PRs)         (PRs cerrados sin merge)            │
- │                                                                         │
- │   cachés reanudables: output/_runs_raw.json                             │
- │                       output/_artifact_attempts.json                    │
- └───────────────────────────────────────────────────────────────────────┘
-```
-
-`main.py` ejecuta los tres scripts en orden. Cada script es idempotente y toma su entrada del archivo producido por el anterior.
+`main.py` ejecuta tres pasos secuenciales: `extract_repo_info.py` obtiene de GHAW-H los repositorios y escribe `output/repositories.json`; `pair_markdown_locks.py` filtra los workflows cuya configuración declara `safe-outputs.create-pull-request`, y conserva el par Markdown/lock más reciente por repositorio en `output/repo_markdown_lock_pairs.json`; `fetch_prs_from_artifacts.py` consulta ejecuciones y artefactos de GitHub, y escribe `output/selected_runs.json` y `output/unmerged_prs.json` con las ejecuciones y PRs cerrados sin merge. Las tablas Parquet se descargan desde Hugging Face y se almacenan en `ICC760/.cache/`; los resultados de la API y el progreso de extracción se almacenan en `output/`. Cada paso usa los resultados del paso anterior y puede reanudarse mediante las cachés descritas más abajo.
 
 ## Descripción del flujo
 
