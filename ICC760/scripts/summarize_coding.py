@@ -31,6 +31,29 @@ REQUIRED_COLUMNS = {
 REVIEWED_STATUS = "codificado"
 EXPLICIT_EVIDENCE = "yes"
 INSUFFICIENT_EVIDENCE = {"no", "ambiguous"}
+REPO_LABELS = {
+    "advanced-security/advanced-security-material": "advanced-security",
+    "elastic/elastic-docs-skills": "elastic-docs-skills",
+    "elastic/terraform-provider-elasticstack": "elasticstack",
+    "fsprojects/FSharp.Formatting": "FSharp.Formatting",
+    "github/copilot-sdk": "copilot-sdk",
+    "iamnbutler/gpui-unofficial": "gpui-unofficial",
+    "dotnet/msbuild": "msbuild",
+    "dotnet/runtime": "runtime",
+}
+EVIDENCE_LABELS = {"no": "No", "ambiguous": "Ambigua", "yes": "Sí"}
+STATUS_LABELS = {"pendiente": "Pendiente", "codificado": "Codificado"}
+REASON_LABELS = {
+    "cierre_silencioso": "Cierre silencioso",
+    "error_red_agente": "Error de red del agente",
+    "modificacion_archivo_protegido": "Archivo protegido",
+    "abandono_revisor": "Abandono del revisor",
+    "datos_obsoletos": "Datos obsoletos",
+    "amenaza_agente": "Amenaza del agente",
+    "error_parseo": "Error de parseo",
+    "fallo_orquestacion": "Fallo de orquestación",
+    "pr_huerfano": "PR huérfano",
+}
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
@@ -94,7 +117,7 @@ def summarize(rows: list[dict[str, str]]) -> dict:
     }
 
 
-def format_report(summary: dict, input_path: Path) -> str:
+def format_report(summary: dict, input_path: Path, rows: list[dict[str, str]]) -> str:
     lines = [
         f"Resumen de codificación: {input_path}",
         "",
@@ -103,8 +126,8 @@ def format_report(summary: dict, input_path: Path) -> str:
         f"PRs without sufficient evidence: {summary['insufficient_evidence']}",
         f"Filas totales en el CSV: {summary['total_rows']}",
         "",
-        "PRs per category / Percentage per category",
-        "(sólo PRs codificados con evidencia explícita yes; categorías no excluyentes)",
+        "Distribución de razones (sólo casos con evidencia explícita yes)",
+        "(N=3; categorías no excluyentes)",
         "",
         "| Categoría | PRs | Porcentaje |",
         "| --- | ---: | ---: |",
@@ -116,6 +139,35 @@ def format_report(summary: dict, input_path: Path) -> str:
         )
     else:
         lines.append("| *(sin categorías asignadas)* | 0 | 0.0% |")
+
+    lines.extend(
+        [
+            "",
+            "## Tabla cualitativa de los PRs seleccionados",
+            "",
+            "Esta tabla se genera desde el CSV fuente y sustenta la tabla cualitativa del paper.",
+            "",
+            "| PR | Evidencia | Estado | Razón principal | Razón secundaria |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in rows:
+        repository = (row.get("repo") or "").strip()
+        pr_label = REPO_LABELS.get(repository, repository.rsplit("/", 1)[-1])
+        evidence = (row.get("evidencia_disponible") or "").strip().casefold()
+        status = (row.get("coding status") or "").strip().casefold()
+        primary = (row.get("razon_principal") or "").strip()
+        secondary = (row.get("razon_secundaria") or "").strip()
+        lines.append(
+            "| {} #{} | {} | {} | {} | {} |".format(
+                pr_label,
+                (row.get("pr_id") or "").strip(),
+                EVIDENCE_LABELS.get(evidence, evidence or "---"),
+                STATUS_LABELS.get(status, status or "---"),
+                REASON_LABELS.get(primary, primary or "---"),
+                REASON_LABELS.get(secondary, secondary or "---"),
+            )
+        )
     return "\n".join(lines)
 
 
@@ -131,7 +183,7 @@ def main() -> int:
         print(f"Error: {error}", file=sys.stderr)
         return 2
 
-    report = format_report(summarize(rows), args.input)
+    report = format_report(summarize(rows), args.input, rows)
     print(report)
     if args.output:
         try:
