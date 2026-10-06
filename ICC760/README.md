@@ -96,3 +96,9 @@ Los archivos con prefijo `_` son cachés internas (excluidas por `.gitignore`).
 La primera ejecución descarga las tablas Parquet desde Hugging Face y las almacena en `ICC760/.cache/` para evitar depender de la red en ejecuciones posteriores. Si deseas forzar una descarga nueva, elimina esa carpeta.
 
 Puedes modificar los scripts de `scripts/` para adaptar el análisis o el output según necesidades de visualización con librerías como matplotlib.
+
+## Replication package — ICC760 Stage 2
+
+GitHub version: `icc760-stage-2`
+Commit: `5209bb1471d6bee13c5ea349b9def8266f897b2d`
+Zenodo DOI: `https://doi.org/10.5281/zenodo.23178074`
