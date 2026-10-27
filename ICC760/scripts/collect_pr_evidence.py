@@ -9,9 +9,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +22,18 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
 DEFAULT_INPUT = PROJECT_DIR / "output" / "unmerged_prs.json"
 DEFAULT_OUTPUT = PROJECT_DIR / "output" / "pr_evidence.json"
+LINKED_ISSUES_VERSION = 1
+ISSUE_URL = re.compile(r"https://github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)\b", re.IGNORECASE)
+GITHUB_MARKDOWN_LINK = re.compile(
+    r"\[([^\]\n]*)\]\(https://github\.com/[\w.-]+/[\w.-]+/(?:issues|pull)/\d+[^)]*\)",
+    re.IGNORECASE,
+)
+ISSUE_REFERENCE = re.compile(
+    r"https://github\.com/(?P<url_repo>[\w.-]+/[\w.-]+)/issues/(?P<url_number>\d+)\b"
+    r"|(?<![\w/])(?P<repo>[\w.-]+/[\w.-]+)\\?#(?P<number>\d+)\b"
+    r"|(?<![\w/#])#(?P<local_number>\d+)\b",
+    re.IGNORECASE,
+)
 
 
 class GitHubCLIError(RuntimeError):
@@ -78,6 +92,119 @@ def api(repo: str, endpoint: str) -> Any:
             else:
                 combined.append(page)
     return combined
+
+
+def collect_linked_issues(evidence: dict[str, Any]) -> None:
+    """Enrich evidence with direct references, never infer a cause of closure.
+
+    Existing PR evidence and previously fetched issue content survive retries.
+    References are not traversed recursively.
+    """
+    pr = evidence["pr"]
+    repo, number = pr["repository"], pr["number"]
+    collected_at = datetime.now(timezone.utc).isoformat()
+    candidates: dict[tuple[str, int], list[dict[str, Any]]] = {}
+    errors: list[dict[str, Any]] = []
+
+    def add(repository: str, issue_number: int, relation: dict[str, Any]) -> None:
+        key = (repository.casefold(), issue_number)
+        if key == (repo.casefold(), number):
+            return
+        relations = candidates.setdefault(key, [])
+        if relation not in relations:
+            relations.append(relation)
+
+    def record_error(source: str, endpoint: str, error: Exception) -> None:
+        errors.append({"source": source, "endpoint": endpoint, "error": str(error), "collected_at": collected_at})
+
+    texts = [("pr.body", pr.get("url"), pr.get("body"))]
+    for source in ("comments", "reviews", "review_comments"):
+        texts.extend((source, item.get("html_url") or item.get("url"), item.get("body"))
+                     for item in evidence.get(source, []))
+    for source, source_url, body in texts:
+        # A label such as [#7](https://github.com/other/repo/issues/7)
+        # refers to the destination, not issue #7 in the PR's repository.
+        link_labels = [match.span(1) for match in GITHUB_MARKDOWN_LINK.finditer(body or "")]
+        for match in ISSUE_REFERENCE.finditer(body or ""):
+            if any(start <= match.start() and match.end() <= end for start, end in link_labels):
+                continue
+            target_repo = match.group("url_repo") or match.group("repo") or repo
+            target_number = int(match.group("url_number") or match.group("number") or match.group("local_number"))
+            add(target_repo, target_number, {
+                "type": "text_reference", "source": source, "source_url": source_url,
+                "reference": match.group(),
+                "evidence": body[max(0, match.start() - 120):match.end() + 120],
+            })
+
+    timeline_endpoint = f"repos/{repo}/issues/{number}/timeline?per_page=100"
+    try:
+        timeline = api(repo, f"issues/{number}/timeline?per_page=100")
+        for event in timeline:
+            if event.get("event") != "cross-referenced":
+                continue
+            issue = (event.get("source") or {}).get("issue") or {}
+            match = ISSUE_URL.fullmatch(issue.get("html_url") or "")
+            if "pull_request" in issue or not match:
+                continue
+            add(match[1], int(match[2]), {
+                "type": "cross-referenced", "source": "timeline",
+                "source_url": f"https://api.github.com/{timeline_endpoint}",
+                "issue_url": issue["html_url"], "event_id": event.get("id"),
+                "created_at": event.get("created_at"),
+                "evidence": {"event": "cross-referenced", "source_issue_url": issue["html_url"]},
+            })
+    except GitHubCLIError as error:
+        record_error("linked_issues.timeline", timeline_endpoint, error)
+
+    linked = {(item["repository"].casefold(), item["number"]): item
+              for item in evidence.get("linked_issues", [])}
+    for (target_repo, target_number), relations in sorted(candidates.items()):
+        endpoint = f"repos/{target_repo}/issues/{target_number}"
+        key = (target_repo, target_number)
+        try:
+            issue = gh_json(["api", endpoint])
+            if not isinstance(issue, dict) or not issue.get("number"):
+                raise GitHubCLIError("Respuesta de issue inválida")
+            # GitHub's issues endpoint also returns pull requests.
+            if "pull_request" in issue:
+                continue
+        except GitHubCLIError as error:
+            record_error("linked_issues.issue", endpoint, error)
+            errors[-1]["relations"] = relations
+            continue
+        item = linked.setdefault(key, {
+            "repository": target_repo, "number": target_number,
+            "url": issue.get("html_url") or f"https://github.com/{target_repo}/issues/{target_number}",
+            "relations": [], "content": {}, "comments": [],
+        })
+        for relation in relations:
+            if relation not in item["relations"]:
+                item["relations"].append(relation)
+        item["content"] = {field: issue.get(field) for field in
+                           ("title", "body", "state", "created_at", "updated_at", "closed_at")}
+        item["content"]["author"] = (issue.get("user") or {}).get("login")
+        item["collected_at"] = collected_at
+        comments_endpoint = f"issues/{target_number}/comments?per_page=100"
+        try:
+            item["comments"] = api(target_repo, comments_endpoint)
+        except GitHubCLIError as error:
+            record_error("linked_issues.comments", f"repos/{target_repo}/{comments_endpoint}", error)
+
+    evidence["linked_issues"] = [linked[key] for key in sorted(linked)]
+    evidence.setdefault("collection_errors", []).extend(errors)
+    evidence["linked_issues_collection"] = {
+        "version": LINKED_ISSUES_VERSION,
+        "status": "partial" if errors else "complete",
+        "collected_at": collected_at,
+        "limitations": [
+            "Sólo referencias textuales directas y eventos cross-referenced visibles; no es una búsqueda exhaustiva.",
+            "Una relación o diagnóstico técnico no confirma la causa de cierre; requiere interpretación manual.",
+        ],
+    }
+    if not linked:
+        evidence["linked_issues_collection"]["limitations"].append(
+            "No se recuperaron issues verificadas automáticamente; conservar la consulta manual."
+        )
 
 
 def fetch_pr_evidence(record: dict[str, Any]) -> dict[str, Any]:
@@ -162,6 +289,7 @@ def fetch_pr_evidence(record: dict[str, Any]) -> dict[str, Any]:
     else:
         result["collection_errors"].append({"source": "ci", "error": "El PR no tiene head SHA disponible"})
 
+    collect_linked_issues(result)
     return result
 
 
@@ -174,11 +302,20 @@ def load_records(path: Path) -> list[dict[str, Any]]:
     return data
 
 
+def save_evidence(path: Path, evidence: dict[str, dict[str, Any]]) -> None:
+    """Replace the checkpoint atomically so interruption cannot truncate it."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(json.dumps({"pull_requests": list(evidence.values())}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT, help=f"JSON de entrada (predeterminado: {DEFAULT_INPUT})")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help=f"JSON de salida (predeterminado: {DEFAULT_OUTPUT})")
     parser.add_argument("--no-resume", action="store_true", help="No reutilizar evidencias existentes en el archivo de salida")
+    parser.add_argument("--refresh-linked-issues", action="store_true", help="Reconsultar sólo issues vinculadas, preservando la evidencia previa del PR")
     parser.add_argument("--delay", type=float, default=0.2, help="Pausa entre PRs en segundos (predeterminado: 0.2)")
     args = parser.parse_args()
 
@@ -191,36 +328,46 @@ def main() -> int:
     if not args.no_resume and args.output.exists():
         try:
             previous = json.loads(args.output.read_text(encoding="utf-8"))
-            for item in previous.get("pull_requests", []):
+            for item in previous["pull_requests"]:
                 key = f"{item['pr']['repository']}#{item['pr']['number']}"
                 evidence[key] = item
-        except (OSError, json.JSONDecodeError, KeyError, TypeError):
-            print(f"Aviso: no se pudo reutilizar {args.output}; se recopilará desde cero", file=sys.stderr)
+        except (OSError, json.JSONDecodeError, KeyError, TypeError, AttributeError) as error:
+            parser.error(f"No se pudo reutilizar {args.output}: {error}. Revise el archivo o use --no-resume explícitamente.")
 
     total = len(records)
     for index, record in enumerate(records, start=1):
         key = f"{record.get('target_repo')}#{record.get('pr_number')}"
+        retry_pr = any(error.get("source") == "pull_request"
+                       for error in evidence.get(key, {}).get("collection_errors", []))
         if key in evidence:
-            print(f"[{index}/{total}] reutilizado {key}")
-            continue
+            collection = evidence[key].get("linked_issues_collection", {})
+            if (not args.refresh_linked_issues and not retry_pr
+                    and collection.get("version") == LINKED_ISSUES_VERSION
+                    and collection.get("status") == "complete"):
+                print(f"[{index}/{total}] reutilizado {key}")
+                continue
         try:
-            evidence[key] = fetch_pr_evidence(record)
-            status = "recopilado"
+            if key in evidence and not retry_pr:
+                collect_linked_issues(evidence[key])
+                status = "contexto de issues actualizado"
+            else:
+                evidence[key] = fetch_pr_evidence(record)
+                status = "recopilado"
         except (GitHubCLIError, ValueError) as error:
-            evidence[key] = {
+            evidence.setdefault(key, {
                 "pr": {"number": record.get("pr_number"), "url": record.get("pr_url"), "repository": record.get("target_repo")},
                 "origin": {"workflow_id": record.get("workflow_id"), "origin_repo": record.get("origin_repo"), "run_id": record.get("run_id"), "run_url": record.get("run_url")},
-                "collection_errors": [{"source": "pull_request", "error": str(error)}],
-            }
+                "linked_issues": [],
+                "collection_errors": [],
+            })
+            evidence[key].setdefault("collection_errors", []).append({"source": "pull_request", "error": str(error)})
             status = f"error: {error}"
         print(f"[{index}/{total}] {key}: {status}")
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(json.dumps({"pull_requests": list(evidence.values())}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        save_evidence(args.output, evidence)
         if args.delay > 0 and index < total:
             time.sleep(args.delay)
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps({"pull_requests": list(evidence.values())}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    save_evidence(args.output, evidence)
     print(f"Evidencia guardada en {args.output} ({len(evidence)} PRs)")
     return 0
 

@@ -1,0 +1,6 @@
+repo,pr_id,evidencia_disponible,razon_principal,razon_secundaria,coding status
+example/repo,1,yes,datos_obsoletos,datos_obsoletos,codificado
+example/repo,2,yes,datos_obsoletos,error_parseo,codificado
+example/repo,3,ambiguous,error_red_agente,,codificado
+example/repo,4,no,,,pendiente
+example/repo,5,no,,,pendiente
