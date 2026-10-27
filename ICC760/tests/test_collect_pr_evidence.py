@@ -105,6 +105,17 @@ class LinkedIssuesTests(unittest.TestCase):
             self.assertIn("collected_at", error)
         self.assertEqual(record["collection_errors"][1]["relations"][0]["type"], "text_reference")
 
+    def test_markdown_labels_do_not_create_false_local_relationships(self):
+        record = evidence("See [#7](https://github.com/other/project/issues/7) "
+                          "and [#8](https://github.com/other/project/pull/8).")
+        self.collect(record, {
+            "repos/dotnet/runtime/issues/134186/timeline?per_page=100": [[]],
+            "repos/other/project/issues/7": issue("other/project", 7),
+            "repos/other/project/issues/7/comments?per_page=100": [[]],
+        })
+        self.assertEqual([(item["repository"], item["number"]) for item in record["linked_issues"]],
+                         [("other/project", 7)])
+
     def test_refresh_failure_preserves_previously_collected_issue(self):
         record = evidence("See #134305")
         responses = {

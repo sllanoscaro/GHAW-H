@@ -24,6 +24,10 @@ DEFAULT_INPUT = PROJECT_DIR / "output" / "unmerged_prs.json"
 DEFAULT_OUTPUT = PROJECT_DIR / "output" / "pr_evidence.json"
 LINKED_ISSUES_VERSION = 1
 ISSUE_URL = re.compile(r"https://github\.com/([\w.-]+/[\w.-]+)/issues/(\d+)\b", re.IGNORECASE)
+GITHUB_MARKDOWN_LINK = re.compile(
+    r"\[([^\]\n]*)\]\(https://github\.com/[\w.-]+/[\w.-]+/(?:issues|pull)/\d+[^)]*\)",
+    re.IGNORECASE,
+)
 ISSUE_REFERENCE = re.compile(
     r"https://github\.com/(?P<url_repo>[\w.-]+/[\w.-]+)/issues/(?P<url_number>\d+)\b"
     r"|(?<![\w/])(?P<repo>[\w.-]+/[\w.-]+)\\?#(?P<number>\d+)\b"
@@ -118,7 +122,12 @@ def collect_linked_issues(evidence: dict[str, Any]) -> None:
         texts.extend((source, item.get("html_url") or item.get("url"), item.get("body"))
                      for item in evidence.get(source, []))
     for source, source_url, body in texts:
+        # A label such as [#7](https://github.com/other/repo/issues/7)
+        # refers to the destination, not issue #7 in the PR's repository.
+        link_labels = [match.span(1) for match in GITHUB_MARKDOWN_LINK.finditer(body or "")]
         for match in ISSUE_REFERENCE.finditer(body or ""):
+            if any(start <= match.start() and match.end() <= end for start, end in link_labels):
+                continue
             target_repo = match.group("url_repo") or match.group("repo") or repo
             target_number = int(match.group("url_number") or match.group("number") or match.group("local_number"))
             add(target_repo, target_number, {

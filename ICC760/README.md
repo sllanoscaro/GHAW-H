@@ -71,7 +71,8 @@ comentarios de revisión, estado de CI y datos del run de origen. La etapa
 1. Referencias directas en cuerpo, comentarios y reviews: URLs
    `https://github.com/owner/repo/issues/N`, `owner/repo#N` (también `\#` escapado)
    y `#N` del mismo repositorio. Se verifica cada candidata con la API de issues;
-   se descartan las respuestas que son PRs (`pull_request`).
+   se descartan las respuestas que son PRs (`pull_request`). En enlaces Markdown
+   a issues/PRs de GitHub se usa el destino, no el número del texto de la etiqueta.
 2. Eventos `cross-referenced` del timeline del PR: la issue de origen menciona
    el PR. Se admiten otros repositorios y se descartan orígenes que son PRs.
 
