@@ -1,9 +1,9 @@
 """Summarize manual qualitative coding in ``analisis_cualitativo.csv``.
 
-By default, a PR is considered reviewed when ``coding status`` is ``codificado``.
-Explicit evidence means ``evidencia_disponible == yes``; insufficient evidence
-means ``no`` or ``ambiguous``. Category counts and percentages include only
-reviewed PRs with explicit evidence, using those PRs as the denominator.
+Each CSV row represents an inspected PR. Coding status and evidence quality
+are independent dimensions: coding may describe context without a supported
+closure cause. Category counts and percentages include only coded PRs with
+``evidencia_disponible == yes``, using those PRs as the denominator.
 Categories are multi-label: a PR is counted once per category if it appears as
 either its primary or secondary reason.
 """
@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -28,7 +29,7 @@ REQUIRED_COLUMNS = {
     "razon_secundaria",
     "coding status",
 }
-REVIEWED_STATUS = "codificado"
+CODED_STATUS = "codificado"
 EXPLICIT_EVIDENCE = "yes"
 INSUFFICIENT_EVIDENCE = {"no", "ambiguous"}
 REPO_LABELS = {
@@ -67,27 +68,35 @@ def load_rows(path: Path) -> list[dict[str, str]]:
             raise ValueError(f"Faltan columnas requeridas: {', '.join(sorted(missing))}")
         rows = list(reader)
 
+    seen = set()
     for line_number, row in enumerate(rows, start=2):
         if not (row.get("repo") or "").strip() or not (row.get("pr_id") or "").strip():
             raise ValueError(f"Falta repo o pr_id en la fila CSV {line_number}")
+        key = (row["repo"].strip().casefold(), row["pr_id"].strip())
+        if key in seen:
+            raise ValueError(f"PR duplicado en la fila CSV {line_number}: {key}")
+        seen.add(key)
+        for field, allowed in (("coding status", STATUS_LABELS), ("evidencia_disponible", EVIDENCE_LABELS)):
+            if (row.get(field) or "").strip().casefold() not in allowed:
+                raise ValueError(f"Valor inválido de {field} en la fila CSV {line_number}")
     return rows
 
 
 def summarize(rows: list[dict[str, str]]) -> dict:
-    reviewed = [
+    coded = [
         row for row in rows
-        if (row.get("coding status") or "").strip().casefold() == REVIEWED_STATUS
+        if (row.get("coding status") or "").strip().casefold() == CODED_STATUS
     ]
     explicit = [
-        row for row in reviewed
+        row for row in coded
         if (row.get("evidencia_disponible") or "").strip().casefold() == EXPLICIT_EVIDENCE
     ]
     insufficient = [
-        row for row in reviewed
+        row for row in coded
         if (row.get("evidencia_disponible") or "").strip().casefold() in INSUFFICIENT_EVIDENCE
     ]
 
-    # Category distribution is restricted to reviewed PRs with explicit evidence.
+    # Category distribution is restricted to coded PRs with explicit evidence.
     # Sets ensure a repeated code on the same PR cannot inflate its count.
     category_prs: dict[str, set[tuple[str, str]]] = {}
     for row in explicit:
@@ -108,9 +117,18 @@ def summarize(rows: list[dict[str, str]]) -> dict:
         }
         for category, prs in sorted(category_prs.items())
     ]
+    evidence_counts = Counter((row.get("evidencia_disponible") or "").strip().casefold() for row in rows)
+    status_counts = Counter((row.get("coding status") or "").strip().casefold() for row in rows)
+    cross_counts = Counter(((row.get("coding status") or "").strip().casefold(),
+                            (row.get("evidencia_disponible") or "").strip().casefold()) for row in rows)
     return {
         "total_rows": len(rows),
-        "reviewed": len(reviewed),
+        "inspected": len(rows),
+        "coded": len(coded),
+        "pending": status_counts["pendiente"],
+        "evidence_counts": {quality: evidence_counts[quality] for quality in ("yes", "ambiguous", "no")},
+        "status_evidence": {status: {quality: cross_counts[status, quality] for quality in ("yes", "ambiguous", "no")}
+                            for status in ("codificado", "pendiente")},
         "explicit_evidence": len(explicit),
         "insufficient_evidence": len(insufficient),
         "categories": categories,
@@ -121,17 +139,35 @@ def format_report(summary: dict, input_path: Path, rows: list[dict[str, str]]) -
     lines = [
         f"Resumen de codificación: {input_path}",
         "",
-        f"Total PRs reviewed: {summary['reviewed']}",
-        f"PRs with explicit evidence: {summary['explicit_evidence']}",
-        f"PRs without sufficient evidence: {summary['insufficient_evidence']}",
-        f"Filas totales en el CSV: {summary['total_rows']}",
+        f"PRs inspeccionados (una fila por PR): {summary['inspected']}",
+        f"PRs codificados: {summary['coded']}",
+        f"PRs pendientes: {summary['pending']}",
+        f"Calidad de evidencia en todos los inspeccionados: yes={summary['evidence_counts']['yes']}, "
+        f"ambiguous={summary['evidence_counts']['ambiguous']}, no={summary['evidence_counts']['no']}",
+        f"PRs codificados con evidencia explícita (yes): {summary['explicit_evidence']}",
+        f"PRs codificados sin evidencia suficiente (ambiguous/no): {summary['insufficient_evidence']}",
         "",
-        "Distribución de razones (sólo casos con evidencia explícita yes)",
-        "(N=3; categorías no excluyentes)",
+        "Inspeccionado significa examinado y registrado en el CSV; codificado puede incluir clasificación contextual sin causa confirmada.",
+        "",
+        "## Cruce de estado de codificación y calidad de evidencia",
+        "",
+        "| Estado | yes | ambiguous | no | Total |",
+        "| --- | ---: | ---: | ---: | ---: |",
+    ]
+    for status, counts in summary["status_evidence"].items():
+        lines.append(f"| {STATUS_LABELS[status]} | {counts['yes']} | {counts['ambiguous']} | {counts['no']} | {sum(counts.values())} |")
+    counts = summary["evidence_counts"]
+    lines.extend([
+        f"| Total | {counts['yes']} | {counts['ambiguous']} | {counts['no']} | {summary['inspected']} |",
+        "",
+        "## Distribución de razones respaldadas según la codificación manual",
+        "",
+        "Sólo casos codificados con evidencia explícita yes. La extracción no valida automáticamente la atribución causal.",
+        f"(N={summary['explicit_evidence']}; categorías no excluyentes)",
         "",
         "| Categoría | PRs | Porcentaje |",
         "| --- | ---: | ---: |",
-    ]
+    ])
     if summary["categories"]:
         lines.extend(
             f"| `{item['category']}` | {item['count']} | {item['percentage']:.1f}% |"
@@ -146,9 +182,10 @@ def format_report(summary: dict, input_path: Path, rows: list[dict[str, str]]) -
             "## Tabla cualitativa de los PRs seleccionados",
             "",
             "Esta tabla se genera desde el CSV fuente y sustenta la tabla cualitativa del paper.",
+            "Las categorías con evidencia ambiguous son anotaciones contextuales o hipótesis originales, no causas confirmadas; se excluyen de los porcentajes anteriores.",
             "",
-            "| PR | Evidencia | Estado | Razón principal | Razón secundaria |",
-            "| --- | --- | --- | --- | --- |",
+            "| PR | Evidencia | Estado | Categoría principal | Categoría secundaria | Alcance de las categorías |",
+            "| --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in rows:
@@ -158,14 +195,21 @@ def format_report(summary: dict, input_path: Path, rows: list[dict[str, str]]) -
         status = (row.get("coding status") or "").strip().casefold()
         primary = (row.get("razon_principal") or "").strip()
         secondary = (row.get("razon_secundaria") or "").strip()
+        if status == CODED_STATUS and evidence == EXPLICIT_EVIDENCE:
+            scope = "Respaldadas según codificación manual" if primary or secondary else "Sin categorías asignadas"
+        elif evidence == "ambiguous" and (primary or secondary):
+            scope = "Contexto/hipótesis; causa no confirmada"
+        else:
+            scope = "Sin causa respaldada"
         lines.append(
-            "| {} #{} | {} | {} | {} | {} |".format(
+            "| {} #{} | {} | {} | {} | {} | {} |".format(
                 pr_label,
                 (row.get("pr_id") or "").strip(),
                 EVIDENCE_LABELS.get(evidence, evidence or "---"),
                 STATUS_LABELS.get(status, status or "---"),
                 REASON_LABELS.get(primary, primary or "---"),
                 REASON_LABELS.get(secondary, secondary or "---"),
+                scope,
             )
         )
     return "\n".join(lines)
