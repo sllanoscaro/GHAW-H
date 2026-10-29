@@ -1,79 +1,90 @@
-# Codebook para el análisis cualitativo de razones de cierre de PRs
+# Codebook: razones documentadas de no integración de PRs de GHAW
 
-## Propósito y unidad de análisis
+**Primera versión:** 0.1 (05-10-2026)
+**Segunda versión:** 0.2 (23-10-2026)
+**Versión actual:** 0.3 (27-10-2026).
+**Datos:** `unmerged_prs.json`, `pr_evidence.json` (82 PRs).
 
-Este codebook documenta la codificación manual de las razones por las que se
-cerraron sin merge los pull requests (PRs) recogidos en
-`analisis_cualitativo.csv`. La unidad de análisis es un PR. Se codifica la
-explicación mejor respaldada por la evidencia disponible en GitHub (cuerpo,
-comentarios, reviews, issues vinculadas y, como contexto, información de CI); no se infiere una
-motivación que la evidencia no permita sostener.
+## 1. Objetivo y alcance
 
-## Inspección, codificación y evidencia
+Responder la pregunta: **¿Cuáles son las principales razones documentadas que explican la no integración de PRs generados por GitHub Agentic Workflows (GHAW)?** La unidad de análisis es un PR creado por un workflow GHAW y posteriormente cerrado sin integración.
 
-- **Inspeccionado**: PR examinado y registrado como una fila en el CSV piloto,
-  incluso si la inspección no permitió completar su codificación. No equivale
-  al universo de PRs extraídos en `output/pr_evidence.json`.
-- **Estado de codificación** (`coding status`): `codificado` indica que se
-  registró una clasificación manual, que puede ser sólo contextual;
-  `pendiente` indica que la codificación no se ha completado. Ninguno de estos
-  estados determina por sí solo la calidad de evidencia.
-- **Calidad de evidencia** (`evidencia_disponible`): `yes` registra evidencia
-  considerada explícita por la codificación manual; `ambiguous` registra
-  contexto o indicios insuficientes para confirmar una causa de cierre;
-  `no` indica que no se encontró evidencia suficiente en las fuentes examinadas.
-  `no` no demuestra que tal explicación no exista en otras fuentes.
-- **Causa de cierre respaldada**: explicación con evidencia que vincula
-  expresamente el fenómeno observado con la decisión de cierre. Un fallo
-  técnico, una alerta, una mención o una relación de timeline no bastan por sí
-  solos. La atribución requiere interpretación manual de la fuente y su alcance.
+Se aplica *card sorting* abierto e iterativo, no una lista cerrada de fallos prefijados. Cada PR constituye una tarjeta compuesta por su identificación, fragmentos de evidencia verificables y contexto. Los casos se agrupan por explicaciones conceptualmente equivalentes sólo cuando hay un vínculo documentado con el cierre.
 
-### Convención para las columnas de categorías
+## 2. Reglas de codificación: nivel de evidencia
 
-Se mantienen los nombres históricos `razon_principal` y `razon_secundaria`.
-En casos `codificado` + `yes`, representan la explicación predominante y un
-factor concurrente según la anotación manual existente, y alimentan la
-distribución de razones respaldadas. El resumen aplica ese criterio de inclusión;
-no revalida automáticamente las atribuciones del CSV.
+| Valor en `evidencia_disponible` | Criterio operacional                                                                                                                                                                                                  | `razon_principal`                        | `senales_contextuales`                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------- |
+| `explícita`                     | Un comentario, revisión, cuerpo del PR o aviso de automatización **vincula directamente** una condición o decisión con el cierre/no integración (p. ej. «not needed», «cierro porque ...», «cerrado por expiración»). | Obligatoria y exactamente una categoría. | Opcionales, nunca aportan una segunda ocurrencia de la razón.       |
+| `ambigua`                       | Hay uno o más indicios técnicos o de discusión que podrían ser relevantes, **sin que se documente que originaron el cierre**.                                                                                         | Vacía.                                   | Registrar sólo los indicios efectivamente descritos en las fuentes. |
+| `ausente`                       | No hay explicación ni indicio pertinente que permita proponer una relación con el cierre. La ausencia de comentarios y un `CI=success` no constituyen por sí solos una razón o indicio causal.                        | Vacía.                                   | Vacías.                                                             |
 
-En filas `ambiguous`, estas mismas columnas conservan **anotaciones contextuales
-o hipótesis originales, no causas confirmadas**. Por ejemplo, `cierre_silencioso`
-describe ausencia de explicación y `error_red_agente` un diagnóstico técnico;
-su presencia no demuestra por qué se cerró el PR. Una hipótesis como
-`abandono_revisor` bajo evidencia ambigua tampoco se eleva a hecho observado.
-Estas categorías se muestran con su alcance explícito en la tabla por PR y se
-excluyen de los porcentajes de razones respaldadas. Para nuevas anotaciones,
-especificar en `coding_notes` qué se observó y qué queda sin confirmar.
+**Importante:** `closed` más CI fallido, una alerta de *threat detection*, la edición de un archivo protegido o la falta de actividad no prueban la causa del cierre. Un fallo de tests tampoco demuestra un `fallo_orquestacion`: podría ser una falla de compilación o test de otro origen. La proximidad temporal no sustituye una explicación. Del mismo modo, «cierre sin explicación» es una descripción de la evidencia faltante y no una categoría de razón principal.
 
-En filas `no`, dejar las categorías vacías; en casos `pendiente`, cualquier
-anotación provisional queda fuera de la distribución hasta completar la revisión.
-Esta convención documenta el uso ya presente en el CSV: conserva las anotaciones
-originales, incluidos los casos de la discrepancia B. Revisar su atribución o
-modificar cifras del paper requiere una revisión metodológica separada y trazable.
+No es necesario que la explicación la emita una persona: un bot que declare expresamente que cerró el PR por una política de expiración puede aportar evidencia explícita. En cambio, un bot que sólo advierte de un riesgo o de revisión obligatoria es una señal contextual, salvo que documente que tal advertencia fue la causa del cierre.
 
-Las categorías de razón describen fenómenos de niveles distintos (p. ej., una
-causa técnica y la decisión de cierre): se permite más de una cuando la
-evidencia apoya explícitamente esa combinación, pero no se debe rellenar una
-categoría secundaria por mera especulación.
+## 3. Categorías confirmadas de razón principal
 
-## Categorías de razón
-
-Los criterios siguientes identifican fenómenos; su interpretación como causa
-de cierre depende de la convención de evidencia anterior.
-
-| Identificador | Definición operacional | Incluir cuando… | No incluir cuando… |
+| Identificador | Definición operacional | Incluir cuando… | Excluir cuando… |
 | --- | --- | --- | --- |
-| `cierre_silencioso` | No hay una explicación explícita de una persona mantenedora/revisora que justifique la decisión de cerrar el PR. Describe la falta de explicación humana observable, no una causa técnica subyacente. | No hay comentario o review que explique por qué se cerró; puede haber una pregunta posterior sin respuesta. Puede coexistir con un diagnóstico técnico del agente (p. ej., un bloqueo de red) si ese diagnóstico no explica explícitamente la decisión de cierre. | Un mantenedor/revisor sí explica el cierre. Un mensaje automático que sólo informa un fallo técnico no cuenta, por sí solo, como explicación humana de la decisión. |
-| `error_red_agente` | El agente o workflow informa que no pudo acceder a una fuente o dominio debido a restricciones de red, firewall o allowlist. | El cuerpo, log o comentario del PR atribuye el bloqueo a firewall, red o dominio no permitido. | El fallo es de parsing, ejecución, validación u orquestación y no se menciona una restricción de red. |
-| `modificacion_archivo_protegido` | El PR modifica uno o más archivos protegidos y la política resultante exige revisión o escrutinio manual antes del merge. | La evidencia señala expresamente archivos protegidos modificados y una exigencia de aprobación/revisión humana asociada. | Sólo hay una alerta genérica de seguridad/amenaza sin identificar la regla de archivo protegido. |
-| `abandono_revisor` | Un revisor o mantenedor deja de avanzar el PR, lo cierra o lo considera no vigente; la evidencia atribuye la decisión a abandono, obsolescencia o falta de seguimiento. | Un comentario indica que el PR está stale/obsoleto, que se cierra por falta de actividad o que ya no se continuará. | El cierre se explica por una duplicación o reemplazo concreto sin señal de abandono; en tal caso codificar sólo la categoría específica respaldada. |
-| `datos_obsoletos` | El contenido o los datos del PR ya no son válidos o actuales, por lo que el cambio dejó de ser necesario o correcto. | La explicación menciona datos stale/desactualizados, fuentes superadas o cambios que ya no reflejan el estado actual. | Sólo hay inactividad del autor/revisor sin evidencia de obsolescencia del contenido. |
-| `amenaza_agente` | Una detección de seguridad o de amenaza agéntica señala que el contenido generado por el agente requiere escrutinio antes de poder integrarse. | La salida de threat detection o una política equivalente emite explícitamente una alerta sobre el PR o su contenido. | El único problema es una regla concreta de archivos protegidos; usar `modificacion_archivo_protegido` cuando esa sea la explicación identificada. |
-| `error_parseo` | Un fallo de análisis sintáctico/estructural impide interpretar correctamente una entrada o salida del agente/workflow. | La evidencia identifica parsing, parse error o error equivalente como el fallo. | La ejecución falla por una clave/condición de control del workflow; considerar `fallo_orquestacion`. |
-| `fallo_orquestacion` | Un defecto en la coordinación o lógica de control del workflow/agente impide completar correctamente una operación o validación. | Se identifica un error en ramas, deduplicación, secuenciación, prefijos o lógica de orquestación. | El problema es exclusivamente un error de parseo de contenido; usar `error_parseo`. |
-| `pr_huerfano` | El workflow deja un PR creado o actualizado en estado huérfano: no queda asociado/registrado correctamente con la ejecución o se produce una condición explícita de orphaning. | La evidencia describe directamente un PR huérfano, duplicado como huérfano o una pérdida de asociación causada por el workflow. | Se observa únicamente una falla interna sin evidencia de que el PR haya quedado huérfano. |
+| `datos_obsoletos` | La información/datos del cambio han perdido actualidad o validez, y esta circunstancia es citada para descartar el PR. | Una explicación de cierre refiere expresamente *stale data*, flakiness no vigente o datos superados. | Únicamente cambió la rama, se considera innecesaria una documentación o un workflow quedó inactivo. |
+| `cambio_no_necesario` | Una persona vinculada al cierre declara que la modificación propuesta no es necesaria. | Comentarios como «not needed» o «no requiere documentación» referidos a la decisión de descartar el PR. | Hay obsolescencia comprobada de datos, insuficiencia funcional, o sólo ausencia de explicación. |
+| `continuacion_manual` | Se cierra el PR porque el trabajo se continuará o realizará manualmente, según declaración explícita. | El autor o responsable comunica esa decisión en conexión con el cierre. | Se solicita simplemente una revisión humana o se detectan archivos protegidos. |
+| `expiracion_automatica` | Un proceso automatizado indica que cerró el PR por alcanzar un plazo/condición de expiración. | Aviso de cierre por expiración claramente asociado al PR. | Un marcador de expiración en el cuerpo que no confirme que esa fue la causa del cierre. |
+| `implementacion_insuficiente` | Se rechaza el cambio por no cubrir una necesidad o comportamiento funcional esperado. | Un comentario de cierre documenta insuficiencia funcional. | Sólo falla CI sin explicación causal, o el cambio se descarta como innecesario. |
+| `destino_incorrecto` | La decisión de no integrar se explica porque el PR apunta a una rama o destino equivocado. | El comentario de cierre señala explícitamente una rama de release inadecuada. | Problemas de push, tamaño del diff u obsolescencia de contenido. |
 
-Las categorías se derivan de los valores efectivamente usados en la hoja de
-análisis. Si aparece una razón nueva, no debe forzarse dentro de una categoría
-existente: anotar la evidencia y proponer un identificador nuevo con definición
-antes de continuar la codificación.
+## 4. Vocabulario de señales contextuales no causales
+
+El campo `senales_contextuales` admite vacío o más etiquetas separadas por `;`. No son categorías de razón principal y nunca se cuentan en la respuesta cuantitativa a RQ. La etiqueta se registra sólo si hay una señal descrita en el material proporcionado.
+
+| Etiqueta                              | Cuándo utilizarla                                                                                                                         |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `ci_fallido`                          | Hay un test, build o check de CI fallido; sin declaración que lo conecte al cierre.                                                       |
+| `archivo_protegido`                   | El PR o revisión registra una regla de archivo protegido y escrutinio manual.                                                             |
+| `alerta_amenaza_agente`               | Un bot o herramienta registró aviso de amenaza; no se sabe si motivó el cierre.                                                           |
+| `error_parseo`                        | Se menciona parsing defectuoso sin explicación de cierre atribuida a ese error.                                                           |
+| `error_red_agente`                    | Se registra bloqueo por firewall, red o dominio no permitido sin vínculo con el cierre.                                                   |
+| `cierre_sin_justificacion`            | Hay una discusión o circunstancia del cierre descrita como silenciosa, sin razón verificable. No significa «abandono» ni es razón causal. |
+| `revision_manual_solicitada`          | Se pide revisión humana sin que conste decisión causal de no integrar.                                                                    |
+| `instruccion_cierre_manual`           | El contenido contiene una instrucción de cierre manual, pero no está acreditada como motivo concreto.                                     |
+| `aprobado_sin_merge`                  | Se documenta una aprobación del PR, aunque finalmente fue cerrado sin merge.                                                              |
+| `validacion_no_concluyente`           | La información disponible menciona validación insuficiente o inconclusa, sin conexión explícita al cierre.                                |
+| `posible_obsolescencia`               | Hay indicios de pérdida de vigencia, pero falta justificar la decisión de cierre.                                                         |
+| `posible_redundancia`                 | Se cuestiona solapamiento con otra automatización/proceso, sin causa confirmada.                                                          |
+| `revision_no_concluyente`             | Hay señales de revisión contradictorias o insuficientes para determinar motivo.                                                           |
+| `otro_pr_existente`                   | Otro PR cubre al menos parte del cambio; no implica automáticamente duplicidad causal.                                                    |
+| `contenido_posiblemente_ya_integrado` | El cuerpo sugiere que el contenido/fuente estaba integrado en otro lugar, sin explicar el cierre.                                         |
+| `rechazo_sin_motivo_documentado`      | Hay indicación de rechazo/desestimación sin argumento que permita una razón principal.                                                    |
+| `posible_reemplazo_por_otro_pr`       | Se menciona un reemplazo aparente por otro PR, sin atribución expresa del cierre.                                                         |
+
+## 5. Esquema del CSV
+
+| Columna                                  | Contenido y validación                                                                                                                             |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `repo`, `pr_id`, `pr_url`, `workflow_id` | Identificadores heredados de la extracción. Clave de unicidad recomendada: `(repo, pr_id)` o `pr_url`. No asumir unívoca la relación PR–ejecución. |
+| `evidencia_disponible`                   | Enum obligatorio: `explícita`, `ambigua`, `ausente`. Se refiere a evidencia causal sobre la no integración, no a cantidad de comentarios/CI.       |
+| `razon_principal`                        | Código del apartado 3; no vacío sólo si `evidencia_disponible=explícita`.                                                                          |
+| `senales_contextuales`                   | Etiquetas de apartado 4 separadas por `;`; no aportan causas confirmadas.                                                                          |
+| `fuente_evidencia`                       | Descripción o localizador existente de comentarios, revisiones, cuerpo o CI. Preferir ID/URL de comentario/revisión/check y tipo de fuente.        |
+| `nota_revision`                          | Justificación actual de la codificación y delimitación de qué es causa y qué es señal.                                                             |
+| `verificacion_fuente`                    | URL que evidencia lo descrito en `razon_principal` y `fuente_evidencia`                                                                            |
+
+## 6. Procedimiento para la revisión
+
+1. Verificar, en los datos de extracción, que cada URL corresponde a un PR realmente `closed`, no integrado (`merged_at=null`), y que procede de un `create_pull_request` emitido por GHAW.
+2. Recuperar el cuerpo, comentarios, reviews, comentarios de revisión y CI con sus IDs, autores, fechas y URLs. Distinguir mensajes anteriores/posteriores al cierre.
+3. Aplicar primero el nivel de evidencia (`explícita`, `ambigua`, `ausente`), y después la categoría principal únicamente a los explícitos. Registrar evidencias técnicas no concluyentes como señales y dejar razón vacía en los otros niveles.
+4. Agrupar por similitud conceptual (*card sorting* abierto). Antes de crear/modificar/fusionar una categoría, fijar su nombre, definición y criterios de inclusión/exclusión.
+5. Contrastar la causa propuesta con el texto del cierre, autor, momento temporal y otras evidencias. Ante desacuerdo o falta de vínculo explícito, mantener `ambigua`.
+6. Informar separadamente: número total de PRs recuperados, distribución de niveles de evidencia, y frecuencias de `razon_principal` sólo entre casos explícitos, con denominador declarado. Ilustrar con casos verificables y no inferir conclusiones para todos los PRs de GHAW.
+
+## 7. Resultados
+
+| Indicador                        | Codificación final |
+| -------------------------------- | -----------: |
+| PRs únicos                       |           82 |
+| Evidencia explícita              |            9 |
+| Evidencia ambigua                |           37 |
+| Evidencia ausente                |           36 |
+| Razones principales registradas  |            9 |

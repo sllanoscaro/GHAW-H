@@ -1,203 +1,131 @@
-# ICC760 - Extracción y análisis de dataset
+# ICC760 — Paquete de réplica del análisis final
 
-Este proyecto extrae, desde el dataset `pavtch/GHAW-H` (Hugging Face), los pares de archivos Markdown / `.lock.yml` que crean pull requests y, a partir de las ejecuciones de esos workflows, los PRs que fueron **cerrados sin ser integrados** (cerrados y no mergeados).
+Estudio de las razones documentadas de no integración de PRs generados por
+GitHub Agentic Workflows. La pregunta, reglas de evidencia y seis categorías
+están definidas en el [codebook](codebook.md).
 
-## Estructura del proyecto
+## Reproducir las tablas del artículo sin red
 
-- `main.py`: Orquesta el flujo completo.
-- `scripts/`: Contiene scripts auxiliares para modularidad.
-- `output/`: Resultados del análisis en formato JSON para futuras visualizaciones.
-
-## Instrucciones de ejecución
-
-1. Crea un entorno virtual y actívalo (puedes usar python3.14 si te aparece en el sistema):
-   ```bash
-   python3.14 -m venv .venv
-   source .venv/bin/activate
-   ```
-2. Instala dependencias necesarias (pandas, pyarrow), usando la versión correcta de pip:
-   ```bash
-   python -m pip install pandas pyarrow
-   ```
-   O si tu entorno requiere, explícitamente:
-   ```bash
-   python3.14 -m pip install pandas pyarrow
-   ```
-3. Ejecuta el flujo principal:
-   ```bash
-   python main.py
-   ```
-
-## Reproducción de los resultados preliminares
-
-Para reproducir los resultados preliminares de esta Etapa 2 no hace falta volver a ejecutar toda la minería de datos ni consultar nuevamente GitHub. El punto de partida son los datos de extracción conservados en `ICC760/output/` —incluidos `unmerged_prs.json`, `pr_evidence.json` y los archivos intermedios asociados— y la codificación manual registrada en `ICC760/analisis_cualitativo.csv`. El resumen de categorías se calcula a partir del CSV; los archivos de `output/` conservan los resultados previos de minería y la evidencia recopilada.
-
-Desde la raíz del repositorio, ejecutar:
+Desde la raíz de este repositorio, con Python 3.11 o posterior:
 
 ```bash
-python ICC760/scripts/summarize_coding.py \
-    --input ICC760/analisis_cualitativo.csv \
-    --output ICC760/output/preliminary_summary.md
+python3 ICC760/scripts/summarize_coding.py \
+  --input ICC760/analisis_cualitativo.csv \
+  --output ICC760/output/final_summary.md
+python3 -m unittest discover -s ICC760/tests -v
 ```
 
-El comando imprime el resumen y guarda una copia en `ICC760/output/preliminary_summary.md`. El archivo contiene los conteos, el cruce estado × evidencia, la distribución de razones y una tabla con una fila por cada PR inspeccionado, con evidencia, estado, categorías principal/secundaria y su alcance. **La tabla generada es la salida reproducible que sustenta la Tabla `qualitative` del paper**, actualmente presentada manualmente en LaTeX; cualquier edición de formato en el paper debe conservar los mismos valores y filas que esta salida.
+Estos comandos usan sólo la biblioteca estándar: no requieren `gh`, credenciales,
+instalación de dependencias ni volver a consultar GitHub. El CSV final del
+proyecto está versionado aquí como `analisis_cualitativo.csv`.
 
-Con los datos actuales, se distinguen:
+La salida esperada es: 82 PRs únicos de 17 repositorios; 9 con evidencia
+explícita (11,0 %), 37 ambigua (45,1 %) y 36 ausente (43,9 %).
+Entre los nueve explícitos: cambio no necesario (3), datos obsoletos (2),
+continuación manual (1), expiración automática (1), implementación insuficiente
+(1) y destino incorrecto (1). Hay 15 nombres de workflow y 17 pares
+repositorio–workflow. De los 37 ambiguos, 25 tienen `ci_fallido`.
 
-- **10 inspeccionados**: diez PRs examinados y registrados en el CSV piloto, una fila por PR; no es el total de la extracción.
-- **7 codificados y 3 pendientes**: estado del trabajo manual. `codificado` también admite clasificación contextual sin causa confirmada.
-- **Calidad de evidencia entre los 10**: 3 `yes`, 4 `ambiguous` y 3 `no`. `yes` significa evidencia considerada explícita por la anotación manual; `ambiguous`, contexto o indicios insuficientes para atribuir una causa; `no`, ausencia de evidencia suficiente en las fuentes examinadas.
-- **Cruce**: los 7 codificados son 3 `yes` + 4 `ambiguous`; los 3 pendientes son `no`. Por eso los 4 codificados sin evidencia suficiente no representan todos los casos sin evidencia suficiente de la muestra.
-- **Denominador de razones respaldadas**: sólo los PRs `codificado` + `yes` (hoy N=3). Todos los conteos, porcentajes y etiquetas N se calculan desde el CSV. Las categorías son no excluyentes y cada PR cuenta una sola vez por categoría.
+El resumen valida identificadores, duplicados y las reglas de codificación.
+Cuenta una razón principal únicamente por PR explícito; las señales contextuales
+no se cuentan como razones. La interpretación y clasificación son manuales:
+el programa no prueba causalidad ni genera el CSV desde la evidencia.
 
-La distribución actual contiene `abandono_revisor`, `amenaza_agente`, `datos_obsoletos`, `error_parseo`, `fallo_orquestacion` y `pr_huerfano`, cada una con 1 PR (33,3 %). Las categorías de los cuatro casos `ambiguous` se conservan como contexto/hipótesis en la tabla, fuera de esa distribución. El [codebook](codebook.md) define esta convención para las columnas históricas `razon_principal` y `razon_secundaria`.
+## Materiales conservados
 
-Una **causa de cierre respaldada** requiere evidencia que vincule explícitamente un fenómeno con la decisión de cierre. El resumen utiliza las anotaciones manuales existentes; no valida causalidad automáticamente. Esta corrección conserva el CSV original y no reclasifica los casos de la discrepancia B ni modifica cifras del paper: eso requiere una revisión metodológica separada.
+| Archivo en `ICC760/` | Contenido |
+| --- | --- |
+| `analisis_cualitativo.csv` | Codificación final de los 82 PRs |
+| `codebook.md` | Definiciones y criterios de inclusión/exclusión |
+| `output/repositories.json` | 262 repositorios del dataset |
+| `output/repo_markdown_lock_pairs.json` | Un par Markdown/lock por cada uno de 118 repositorios seleccionados |
+| `output/selected_runs.json` | 81 ejecuciones seleccionadas; una ejecución puede crear más de un PR |
+| `output/unmerged_prs.json` | 82 PRs únicos cerrados y no integrados, con su ejecución de origen |
+| `output/pr_evidence.json` | Cuerpo, comentarios, revisiones, CI e issues vinculadas, con procedencia y errores |
+| `output/final_summary.md` | Tablas y enlaces de los nueve casos explícitos, generados desde el CSV |
+| `output/preliminary_summary.md` | Salida histórica del piloto de Etapa 2; no representa los resultados finales |
 
-## Evidencia de PRs e issues vinculadas (`collect_pr_evidence.py`)
+Los JSON son evidencia del estudio, no archivos temporales. La consulta de issues
+vinculadas del 27 de octubre de 2026 registra 64 casos `complete` y 18 `partial`;
+los errores están en `collection_errors`. `complete` indica éxito de esa consulta,
+no exhaustividad de la evidencia. Los nueve localizadores explícitos del CSV
+están presentes en los comentarios guardados.
 
-Esta etapa se ejecuta por separado, después de obtener `unmerged_prs.json`, desde la raíz del repositorio. Requiere GitHub CLI (`gh`) autenticado y acceso a los repositorios:
+## Ejecutar una nueva extracción
+
+Una extracción nueva consulta servicios cambiantes y **no garantiza recuperar
+la muestra histórica**: GitHub puede eliminar o expirar artefactos, modificar
+comentarios y exponer otras ejecuciones recientes. Además, `scripts/utils.py`
+descarga `pavtch/GHAW-H` desde la revisión mutable `main`; la extracción conservada
+no registra el commit de Hugging Face ni su fecha inicial de descarga. La versión
+0.1.2 declarada en el artículo no puede comprobarse sólo con esas salidas.
+Para reproducir exactamente los recuentos, usar los archivos conservados arriba.
+
+Ejecutar la nueva minería en **otra copia del repositorio**, porque sobrescribe
+las salidas de `ICC760/output/`. Requiere Python 3.12, conexión a Hugging Face y
+GitHub, y GitHub CLI autenticado con acceso a las ejecuciones y sus artefactos:
 
 ```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r ICC760/requirements.txt
+gh auth status
+```
+
+Si no existe una sesión de GitHub CLI, configurar primero `gh auth login`.
+Las dependencias de `ICC760/requirements.txt` son para la minería; el archivo
+`requirements.txt` de la raíz incluye además herramientas de los notebooks de GHAW-H.
+
+Ejecutar desde la raíz, en este orden:
+
+```bash
+python ICC760/scripts/extract_repo_info.py
+python ICC760/scripts/pair_markdown_locks.py
+python ICC760/scripts/fetch_prs_from_artifacts.py --max-runs-scan 100 --all-runs
 python ICC760/scripts/collect_pr_evidence.py \
-    --input ICC760/output/unmerged_prs.json \
-    --output ICC760/output/pr_evidence.json
+  --input ICC760/output/unmerged_prs.json \
+  --output ICC760/output/pr_evidence.json --no-resume
 ```
 
-Recolecta automáticamente cuerpo y metadatos del PR, comentarios, reviews,
-comentarios de revisión, estado de CI y datos del run de origen. La etapa
-`collect_linked_issues` añade contexto de issues mediante:
+1. Se descargan las tablas Parquet y se enumeran los repositorios.
+2. Se seleccionan configuraciones con `safe-outputs.create-pull-request`,
+   conservando el par Markdown/lock más reciente entre los elegibles por repositorio.
+3. Se examinan hasta 100 ejecuciones recientes por workflow; se leen entradas
+   `create_pull_request` de `safe-output-items.jsonl` dentro de `safe-outputs-items`.
+   Se excluyen URLs de issues y se retienen PRs `closed` con `merged_at=null`.
+   Se deduplican por repositorio de destino y número de PR.
+4. Se recopila evidencia y contexto de issues vinculadas. Revisar los errores
+   de recolección antes de interpretar ausencias.
+5. Se revisa y codifica manualmente cada PR siguiendo el codebook. Sólo después
+   se ejecuta `summarize_coding.py` para calcular las tablas de la nueva muestra.
 
-1. Referencias directas en cuerpo, comentarios y reviews: URLs
-   `https://github.com/owner/repo/issues/N`, `owner/repo#N` (también `\#` escapado)
-   y `#N` del mismo repositorio. Se verifica cada candidata con la API de issues;
-   se descartan las respuestas que son PRs (`pull_request`). En enlaces Markdown
-   a issues/PRs de GitHub se usa el destino, no el número del texto de la etiqueta.
-2. Eventos `cross-referenced` del timeline del PR: la issue de origen menciona
-   el PR. Se admiten otros repositorios y se descartan orígenes que son PRs.
+`python ICC760/main.py` ejecuta únicamente los tres primeros pasos y reutiliza
+la caché de runs. No recopila evidencia ni realiza el análisis cualitativo.
 
-El JSON conserva los campos previos y añade a cada PR:
+### Reanudación y límites
 
-- `linked_issues`: lista (vacía si no hay issues verificadas) con `repository`,
-  `number`, `url`, `relations`, `content`, `comments` y `collected_at`.
-  Se deduplica por repositorio (sin distinguir mayúsculas) y número. Cada
-  `relation` conserva `type` (`text_reference` o `cross-referenced`), `source`,
-  `source_url` y `evidence` (extracto textual o datos del evento); las menciones
-  guardan el texto reconocido en `reference`, y los eventos
-  incluyen además `issue_url`, `event_id` cuando existe y `created_at`.
-  `content` guarda título, cuerpo, estado, autor y fechas de la issue.
-- `linked_issues_collection`: versión del esquema, fecha UTC, estado
-  `complete`/`partial` de la última consulta y limitaciones. `complete` sólo
-  indica éxito de las consultas de esta etapa, no exhaustividad metodológica.
-- `collection_errors`: conserva los errores anteriores y añade fallos de
-  timeline, issue o comentarios con `source`, `endpoint`, `error` y fecha UTC;
-  una candidata inaccesible guarda también sus relaciones para consulta manual.
+- `fetch_prs_from_artifacts.py --reuse-runs` reutiliza `output/_runs_raw.json`;
+  `--reset` ignora `output/_artifact_attempts.json`. Para renovar ambos, usar
+  `--reset` sin `--reuse-runs`. `--max-runs-selected N` limita la selección;
+  no combinarlo con `--all-runs`, que tiene prioridad.
+- `collect_pr_evidence.py` reanuda por defecto, conserva evidencia previa y
+  reintenta consultas de issues parciales. `--refresh-linked-issues` actualiza
+  esas relaciones; `--no-resume` reconstruye la salida y se reserva a la nueva copia.
+- El descubrimiento de issues es de un salto. Una relación o fallo de CI no
+  demuestra el motivo del cierre; deben revisarse fuente, autoría y cronología.
+- El extractor de artefactos puede convertir fallos de API/descarga en resultados
+  vacíos y guardarlos en caché. Un comando terminado sin error no acredita una
+  extracción completa. Esta limitación del recolector afecta nuevas muestras;
+  las pruebas del resumen verifican los archivos conservados.
 
-Timeline y comentarios de issues se consultan con paginación completa. Un 404,
-falta de permisos o fallo de API queda registrado y permite continuar con otras
-issues y PRs. Los fallos transitorios reconocidos por el cliente se reintentan.
-Las candidatas no verificadas no se añaden como issues nuevas.
+## Temporales y versión archivada
 
-La extracción es **reanudable**: los JSON antiguos se enriquecen automáticamente
-sin volver a descargar la evidencia del PR. Se reintentan etapas de issues
-parciales y se reutilizan las completas. Para consultar otra vez todas las
-relaciones, añadir `--refresh-linked-issues` al comando anterior. Se preservan
-las issues recuperadas anteriormente aunque una consulta posterior falle o deje
-de exponer su relación, con sus fechas de recolección y procedencias. Los errores
-son históricos; el estado de la última consulta está en `linked_issues_collection`.
-Cada checkpoint se reemplaza atómicamente. `--no-resume` reconstruye la salida
-desde cero; un archivo de reanudación ilegible produce un error para evitar
-sobrescribir evidencia silenciosamente.
+`.cache/`, `output/_*.json`, `.venv/`, `__pycache__/` y `*.py[cod]` están excluidos
+por las reglas de Git. `output/*.tmp` son checkpoints transitorios de escritura.
+No se deben eliminar los JSON de evidencia ni las pruebas como si fueran temporales.
 
-### Alcance e interpretación manual
-
-El descubrimiento es de un solo salto, sin recorrer recursivamente las issues,
-sin buscar menciones en todo GitHub ni inspeccionar enlaces en logs/CI. No cubre
-todos los formatos de enlace, vínculos privados o eliminados ni todas las
-relaciones de la interfaz de GitHub. Los textos del PR reutilizados corresponden
-a la captura original; la nueva consulta del timeline puede incluir referencias
-posteriores al cierre, incluso referencias al estudio mismo. Las fechas y fuentes
-permiten evaluar esa diferencia temporal durante la revisión manual. Una lista
-vacía no prueba ausencia de relaciones: el JSON registra esa limitación.
-
-Para `dotnet/runtime#134186`, GitHub expone un evento `cross-referenced` desde
-`dotnet/runtime#134305`, que este procedimiento conserva junto al contenido de
-la issue. Si deja de estar disponible, los errores/limitaciones quedan registrados
-y sigue siendo necesaria la consulta manual documentada en el CSV.
-
-Una mención o relación verificable demuestra **vinculación**, no causalidad.
-Un diagnóstico del agente, una alerta de seguridad o un fallo de CI son
-**evidencia técnica**; sólo una fuente que explique su vínculo con la decisión
-puede respaldar una **explicación del cierre**. Seleccionar pasajes pertinentes,
-evaluar autoría/cronología y codificar las razones sigue siendo trabajo manual.
-
-### Pruebas reproducibles sin red
-
-```bash
-python -m unittest discover -s ICC760/tests -v
-```
-
-Las pruebas simulan GitHub (relaciones, ausencia, duplicados, otros repositorios,
-paginación, errores y reanudación) y verifican conteos/denominadores del CSV,
-incluido un fixture con un número distinto de casos codificados `yes`.
-
-## Secuencia de procesamiento
-
-`main.py` ejecuta tres pasos secuenciales: `extract_repo_info.py` obtiene de GHAW-H los repositorios y escribe `output/repositories.json`; `pair_markdown_locks.py` filtra los workflows cuya configuración declara `safe-outputs.create-pull-request`, y conserva el par Markdown/lock más reciente por repositorio en `output/repo_markdown_lock_pairs.json`; `fetch_prs_from_artifacts.py` consulta ejecuciones y artefactos de GitHub, y escribe `output/selected_runs.json` y `output/unmerged_prs.json` con las ejecuciones y PRs cerrados sin merge. Las tablas Parquet se descargan desde Hugging Face y se almacenan en `ICC760/.cache/`; los resultados de la API y el progreso de extracción se almacenan en `output/`. Cada paso usa los resultados del paso anterior y puede reanudarse mediante las cachés descritas más abajo.
-
-## Descripción del flujo
-
-1. Se extrae el nombre y la URL de todos los repositorios del dataset (`extract_repo_info.py`), guardando `output/repositories.json`.
-2. Se emparejan los archivos markdown con los archivos `.lock.yml` asociados a cada repositorio (`pair_markdown_locks.py`), guardando `output/repo_markdown_lock_pairs.json`. El proceso aplica los siguientes filtros en orden:
-   1. **Filtro por `safe-outputs: create-pull-request`**: se conservan únicamente los pares cuyo archivo Markdown declare la sección `safe-outputs` con la clave `create-pull-request` en su frontmatter. Esto limita el alcance a workflows que crean pull requests.
-   2. **Última versión por par**: para cada par `(markdown, lock)` se conserva la versión más reciente según `committed_at`.
-   3. **Última modificación por repositorio**: si un repositorio aún posee más de un par, se conserva únicamente el par cuyo commit sea el más reciente.
-3. Se extraen los PRs **cerrados sin merge** creados por las ejecuciones de cada workflow (`fetch_prs_from_artifacts.py`), a partir del artefacto `safe-outputs-items` de cada run. Requiere `gh` autenticado (`gh auth login`). El detalle está en la sección siguiente.
-
-## Extracción de PRs desde artefactos (`fetch_prs_from_artifacts.py`)
-
-Para cada workflow resultado del paso 2:
-
-1. **Runs**: lista hasta `--max-runs-scan` (100 por defecto) ejecuciones con `gh run list --workflow <lock>.yml --limit N`. Los workflows **sin ejecuciones asociadas (0 runs) se descartan** y quedan fuera del estudio.
-2. **Indexado de artefactos**: lista en bloque los artefactos `safe-outputs-items` por repositorio con
-   `GET /repos/{o}/{r}/actions/artifacts?name=safe-outputs-items` (evita listar artefacto por artefacto). Si el endpoint falla, usa un listado por run como respaldo.
-3. **Descarga y parseo**: descarga el `.zip` del artefacto y lee `safe-output-items.jsonl`, extrayendo las entradas `create_pull_request` con URL `/pull/N` (se descartan las de `/issues/N` producidas por `fallback-as-issue`).
-4. **Estado del PR**: consulta `GET /repos/{target}/pulls/{N}` y conserva la ejecución sólo si el PR está **cerrado y no mergeado** (`state == closed` y `merged_at == null`).
-5. **Selección**: por defecto conserva **todas** las ejecuciones que cumplen dentro de la ventana explorada (sin tope, `--all-runs`). Se puede acotar con `--max-runs-selected N`. Las ejecuciones sin artefacto se excluyen.
-
-Opciones útiles:
-- `--all-runs`: sin tope de selección; conserva todas las runs que califiquen (comportamiento por defecto).
-- `--max-runs-selected N`: impone un tope de N runs que califican por workflow.
-- `--max-runs-scan N`: cuántas ejecuciones explora por workflow (100 por defecto).
-- `--reuse-runs`: reutiliza la caché de runs `output/_runs_raw.json`.
-- `--reset`: ignora la caché de intentos `output/_artifact_attempts.json` y reprocesa todo desde cero.
-- `--workers N`: número de hilos (por defecto 8); las llamadas a la API están limitadas globalmente para no gatillar límites secundarios.
-
-### Salidas en `output/`
-
-| Archivo | Contenido | Producido por |
-| --- | --- | --- |
-| `repositories.json` | Repositorios del dataset: nombre y URL | `extract_repo_info.py` |
-| `repo_markdown_lock_pairs.json` | 1 par `markdown_file` / `lock_file` por repositorio (los que crean PR) | `pair_markdown_locks.py` |
-| `selected_runs.json` | Ejecuciones seleccionadas (todas las que califican; sin tope) con sus PRs | `fetch_prs_from_artifacts.py` |
-| `unmerged_prs.json` | PRs de interés (cerrados sin merge) con el run que los generó | `fetch_prs_from_artifacts.py` |
-| `pr_evidence.json` | Evidencia de PRs, issues vinculadas con procedencia y errores de recolección | `collect_pr_evidence.py` |
-| `preliminary_summary.md` | Conteos, cruces, distribución de razones y tabla por PR del CSV piloto | `summarize_coding.py` |
-| `_runs_raw.json` | Caché de runs listados (reanudable) | `fetch_prs_from_artifacts.py` |
-| `_artifact_attempts.json` | Caché de resultados por run (reanudable) | `fetch_prs_from_artifacts.py` |
-
-Los archivos con prefijo `_` son cachés internas (excluidas por `.gitignore`).
-
-> El proceso es **reanudable**: el progreso por run se guarda en `output/_artifact_attempts.json`; si se interrumpe, al re-ejecutar continúa donde quedó.
-
-### Caché local
-
-La primera ejecución descarga las tablas Parquet desde Hugging Face y las almacena en `ICC760/.cache/` para evitar depender de la red en ejecuciones posteriores. Si deseas forzar una descarga nueva, elimina esa carpeta.
-
-Puedes modificar los scripts de `scripts/` para adaptar el análisis o el output según necesidades de visualización con librerías como matplotlib.
-
-## Replication package — ICC760 Stage 2
-
-GitHub version: `icc760-stage-2`
-Commit: `5209bb1471d6bee13c5ea349b9def8266f897b2d`
-Zenodo DOI: `https://doi.org/10.5281/zenodo.23178074`
+El depósito [Zenodo 10.5281/zenodo.23178074](https://doi.org/10.5281/zenodo.23178074)
+está identificado en este repositorio como **Etapa 2**, tag `icc760-stage-2`,
+commit `5209bb1471d6bee13c5ea349b9def8266f897b2d`. No se presenta como una
+publicación del análisis final. Antes de entregar, archivar una nueva versión
+con los materiales finales y actualizar en el artículo el DOI de esa versión.

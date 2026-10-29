@@ -1,3 +1,7 @@
+import csv
+import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -6,65 +10,60 @@ from ICC760.scripts import summarize_coding as coding
 
 
 class SummarizeCodingTests(unittest.TestCase):
-    def test_pilot_counts_and_table_preserve_all_inspected_prs(self):
+    def test_final_csv_matches_archived_extraction_and_article(self):
         rows = coding.load_rows(coding.DEFAULT_INPUT)
         summary = coding.summarize(rows)
-        self.assertEqual((summary["inspected"], summary["coded"], summary["pending"]), (10, 7, 3))
-        self.assertEqual(summary["evidence_counts"], {"yes": 3, "ambiguous": 4, "no": 3})
-        self.assertEqual(summary["status_evidence"], {
-            "codificado": {"yes": 3, "ambiguous": 4, "no": 0},
-            "pendiente": {"yes": 0, "ambiguous": 0, "no": 3},
+        records = json.loads((coding.PROJECT_DIR / 'output/unmerged_prs.json').read_text())
+        self.assertEqual({row.pr_url for row in rows}, {record['pr_url'] for record in records})
+        self.assertTrue(all(record['pr_state'] == 'closed' and record['pr_merged_at'] is None for record in records))
+        self.assertEqual((summary.total, summary.repositories, summary.workflow_names, summary.repository_workflows), (82, 17, 15, 17))
+        self.assertEqual(summary.evidence, {'explícita': 9, 'ambigua': 37, 'ausente': 36})
+        self.assertEqual(summary.reasons, {
+            'cambio_no_necesario': 3, 'datos_obsoletos': 2,
+            'continuacion_manual': 1, 'expiracion_automatica': 1,
+            'implementacion_insuficiente': 1, 'destino_incorrecto': 1,
         })
-        self.assertEqual(summary["explicit_evidence"], 3)
-        self.assertEqual(summary["insufficient_evidence"], 4)
-        self.assertEqual(len(summary["categories"]), 6)
-        for category in summary["categories"]:
-            self.assertEqual(category["count"], 1)
-            self.assertAlmostEqual(category["percentage"], 100 / 3)
-        report = coding.format_report(summary, coding.DEFAULT_INPUT, rows)
-        self.assertIn("N=3;", report)
-        self.assertEqual(sum(line.startswith("| ") and " #" in line for line in report.splitlines()), 10)
-        self.assertEqual(report.count("Contexto/hipótesis; causa no confirmada"), 4)
-        for row in rows:
-            self.assertEqual(report.count(f" #{row['pr_id']} |"), 1)
+        self.assertEqual(summary.ambiguous_ci, 25)
+        evidence = json.loads((coding.PROJECT_DIR / 'output/pr_evidence.json').read_text())['pull_requests']
+        sources = {item.get('html_url') for record in evidence
+                   for field in ('comments', 'reviews', 'review_comments') for item in record[field]}
+        self.assertTrue(all(row.source_url in sources for row in rows if row.evidence == 'explícita'))
 
-    def test_changed_yes_fixture_uses_only_coded_yes_as_denominator(self):
-        path = Path(__file__).parent / "fixtures" / "coding_changed_yes.csv"
-        rows = coding.load_rows(path)
-        summary = coding.summarize(rows)
-        self.assertEqual(summary["evidence_counts"]["yes"], 2)
-        self.assertEqual(summary["explicit_evidence"], 2)
-        self.assertEqual(summary["categories"], [
-            {"category": "datos_obsoletos", "count": 2, "percentage": 100.0},
-            {"category": "error_parseo", "count": 1, "percentage": 50.0},
-        ])
-        report = coding.format_report(summary, path, rows)
-        self.assertIn("N=2;", report)
-        self.assertNotIn("N=3;", report)
-        self.assertIn("| Pendiente | 0 | 0 | 2 | 2 |", report)
-        rows[-1].update({"evidencia_disponible": "yes", "razon_principal": "pr_huerfano"})
-        with_pending_yes = coding.summarize(rows)
-        self.assertEqual(with_pending_yes["evidence_counts"]["yes"], 3)
-        self.assertEqual(with_pending_yes["explicit_evidence"], 2)
-        self.assertEqual(with_pending_yes["categories"], summary["categories"])
+    def test_cli_reproduces_committed_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'summary.md'
+            result = subprocess.run([
+                sys.executable, str(coding.PROJECT_DIR / 'scripts/summarize_coding.py'),
+                '--input', str(coding.DEFAULT_INPUT), '--output', str(output),
+            ], capture_output=True, text=True, check=True)
+            self.assertEqual(result.stdout, output.read_text())
+            self.assertEqual(output.read_text(), (coding.PROJECT_DIR / 'output/final_summary.md').read_text())
 
-    def test_no_coded_yes_and_empty_sample(self):
-        for rows in ([], [{"repo": "a/b", "pr_id": "1", "coding status": "pendiente", "evidencia_disponible": "yes"}]):
-            with self.subTest(rows=rows):
-                summary = coding.summarize(rows)
-                self.assertEqual(summary["categories"], [])
-                self.assertIn("N=0;", coding.format_report(summary, Path("empty.csv"), rows))
-
-    def test_invalid_dimensions_and_duplicate_prs_are_rejected(self):
-        header = "repo,pr_id,evidencia_disponible,razon_principal,razon_secundaria,coding status\n"
-        for data in ("a/b,1,maybe,,,codificado\n", "a/b,1,yes,,,unknown\n",
-                     "a/b,1,yes,,,codificado\nA/B,1,no,,,pendiente\n"):
-            with self.subTest(data=data), tempfile.TemporaryDirectory() as directory:
-                path = Path(directory) / "invalid.csv"
-                path.write_text(header + data, encoding="utf-8")
+    def test_invalid_assignments_and_duplicates_are_rejected(self):
+        with coding.DEFAULT_INPUT.open(newline='') as stream:
+            originals = list(csv.DictReader(stream))
+        explicit = next(row for row in originals if row['evidencia_disponible'] == 'explícita')
+        absent = next(row for row in originals if row['evidencia_disponible'] == 'ausente')
+        cases = [
+            [{**explicit, 'razon_principal': ''}],
+            [{**explicit, 'verificacion_fuente': ''}],
+            [{**explicit, 'evidencia_disponible': 'ambigua'}],
+            [{**absent, 'senales_contextuales': 'ci_fallido'}],
+            [{**explicit, 'razon_principal': 'datos_obsoletos;cambio_no_necesario'}],
+            [{**absent, 'pr_id': '0'}],
+            [absent, absent],
+            [],
+        ]
+        for rows in cases:
+            with self.subTest(rows=rows), tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / 'invalid.csv'
+                with path.open('w', newline='') as stream:
+                    writer = csv.DictWriter(stream, fieldnames=list(originals[0]))
+                    writer.writeheader()
+                    writer.writerows(rows)
                 with self.assertRaises(ValueError):
                     coding.load_rows(path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

@@ -1,2 +1,4 @@
 .cache/
 output/_*.json
+
+output/*.tmp
