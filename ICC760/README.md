@@ -124,8 +124,6 @@ la caché de runs. No recopila evidencia ni realiza el análisis cualitativo.
 por las reglas de Git. `output/*.tmp` son checkpoints transitorios de escritura.
 No se deben eliminar los JSON de evidencia ni las pruebas como si fueran temporales.
 
-El depósito [Zenodo 10.5281/zenodo.23178074](https://doi.org/10.5281/zenodo.23178074)
-está identificado en este repositorio como **Etapa 2**, tag `icc760-stage-2`,
-commit `5209bb1471d6bee13c5ea349b9def8266f897b2d`. No se presenta como una
-publicación del análisis final. Antes de entregar, archivar una nueva versión
-con los materiales finales y actualizar en el artículo el DOI de esa versión.
+El depósito [Zenodo 10.5281/zenodo.23785036](https://doi.org/10.5281/zenodo.23785036)
+está identificado en este repositorio mediante el tag `icc760-stage-final`,
+commit `c9d3d585cd4b97dea9b963119f6e8b4130aee05e`.
